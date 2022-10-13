@@ -1,5 +1,8 @@
 """
-
+Look into:
+    https://github.com/Spidy20/Smart_Resume_Analyser_App
+    https://omkarpathak.in/pyresparser/
+    https://pypi.org/project/pdfminer/
 """
 
 from dataclasses import dataclass
