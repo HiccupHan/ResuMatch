@@ -13,6 +13,7 @@ class JobContent:
     desc: list[str] = []
     skills: list[str] = []
     misc: list[str] = []
+    company: str
     linkedin_url: str = ""
 
 
