@@ -5,16 +5,16 @@ Look into:
     https://pypi.org/project/pdfminer/
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
 class ResumeContent:
     """ Dataclass to collect and format parsed resume data """
-    qual: list[str] = []
-    exper: list[str] = []
-    skills: list[str] = []
-    misc: list[str] = []
+    qual: list[str] = field(default_factory=list)
+    exper: list[str] = field(default_factory=list)
+    skills: list[str] = field(default_factory=list)
+    misc: list[str] = field(default_factory=list)
     user_id: str = ""
 
 

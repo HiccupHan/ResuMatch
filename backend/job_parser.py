@@ -3,16 +3,16 @@ Look into:
     https://learn.microsoft.com/en-us/linkedin/talent/job-postings/api/overview
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
 class JobContent:
     """ Dataclass to collect and format parsed LinkedIn Job Description data """
-    qual: list[str] = []
-    desc: list[str] = []
-    skills: list[str] = []
-    misc: list[str] = []
+    qual: list[str] = field(default_factory=list)
+    desc: list[str] = field(default_factory=list)
+    skills: list[str] = field(default_factory=list)
+    misc: list[str] = field(default_factory=list)
     company: str = ""
     linkedin_url: str = ""
 

@@ -3,14 +3,14 @@ Look into:
     https://www.glassdoor.com/developer/index.htm
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
 class GlassdoorContent:
     """ Dataclass to collect and format parsed glassdoor data """
     rating: float = -1.
-    reviews: list[str] = []
+    reviews: list[str] = field(default_factory=list)
     linkedin_url: str = ""
     glassdoor_url: str = ""
 
