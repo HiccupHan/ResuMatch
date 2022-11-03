@@ -1,17 +1,25 @@
 header {
-    background-color: rgb(47, 124, 247);
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
-  }
-  h1 {
-    font-size: 30px;
-    padding: 0.8em;
-    padding-bottom: 0;
-  }
-  h2 {
-    text-align: right;
-    font-size: 12px;
-    padding-bottom: 1em;
-    padding-right: 0.4em;
-  }
+  background-color: rgb(47, 124, 247);
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 30px;
+  padding: 0.3em;
+  padding-bottom: 0;
+}
+
+.login-info {
+  display: grid;
+  grid-template-columns:1fr 2fr 0.5fr;
+}
+
+h2 {
+  text-align: right;
+  font-size: 12px;
+  padding-bottom: 0.2em;
+  padding-right: 0.1em;
+}
