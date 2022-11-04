@@ -1,0 +1,18 @@
+.display-container{
+    border: solid;
+    border-color: grey;
+    border-width: 1px;
+    margin: 5px;
+    border-radius: 3px;
+    background-color: gray;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.pdf-icon{
+    width: auto;
+    height: 35px;
+    margin-right: 10px;
+    margin-left: 5px;
+}

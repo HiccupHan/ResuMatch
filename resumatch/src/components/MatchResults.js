@@ -14,7 +14,7 @@ MatchResults.defaultProps = {
     numberOfStars: 0,
 }
 MatchResults.propsTypes = {
-    name: PropsTypes.number,
+    numberOfStars: PropsTypes.number,
 }
 
 export default MatchResults
