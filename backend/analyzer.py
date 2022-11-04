@@ -18,3 +18,18 @@ class Analyzer:
         """ Take in job and resume content and give match score"""
         raise NotImplementedError
 
+    def qual_match(job_qual: list, resume_qual: list) -> tuple[list, float]:
+        """ Match qualifications. """
+
+    def exper_match(job_desc: list, resum_exper: list) -> tuple[list, float]:
+        """ Match job description with user's working experience """
+
+    def skills_match(job_skills: list, resume_skills: list) -> tuple[list, float]:
+        """Match job's required skills and user's skills"""
+
+    def type_match(job_misc: list, resume_misc: list) -> tuple[list, float]:
+        """ Match job type: internship/part-time/full-time. If internship, further match  duration. If part-time, further match working hours. The tuple should include work type, duration, working hours, etc."""
+
+    def misc_match(job_misc: list, resume_misc: list) -> tuple[list, float]:
+        """ Match other things """
+
