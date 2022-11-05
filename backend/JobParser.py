@@ -1,22 +1,37 @@
 """
-Look into:
-    https://learn.microsoft.com/en-us/linkedin/talent/job-postings/api/overview
+LinkedIn Job Posting Parsing
+
+Resources:
+
+    - https://learn.microsoft.com/en-us/linkedin/talent/job-postings/api/overview
 """
 from dataclasses import dataclass, field
 
 @dataclass
 class JobContent:
-    """ Dataclass to collect and format parsed LinkedIn Job Description data """
+    """ Dataclass to collect and format parsed LinkedIn Job Description data
+
+    - *linkedin_url*: url to linked job posting
+    - *company*: Company name
+    - *job_title*: Job Title
+    - *qual*: Required education and professional qualifications
+    - *desc*: Job Description
+    - *skills*: Required Skills
+    - *misc*: Miscellaneous
+    """
+
     linkedin_url: str = ""
     company: str = ""
     job_title: str = ""
-    qual: list[str] = field(default_factory=list)       # qualifications
-    desc: list[str] = field(default_factory=list)       # job description
-    skills: list[str] = field(default_factory=list)     # required skills
-    misc: list[str] = field(default_factory=list)       # miscellaneous
+    qual: list[str] = field(default_factory=list)
+    desc: list[str] = field(default_factory=list)       #: job description
+    skills: list[str] = field(default_factory=list)     #: required skills
+    misc: list[str] = field(default_factory=list)       #: miscellaneous
 
-class BuildJobContent:
+
+class _BuildJobContent:
     """ Class to build job content dataclass based on web source """
+
     url: str
     source: str
     
@@ -55,13 +70,11 @@ class JobParser:
         pass
 
     @staticmethod
-    def __call__(self, linkedin_url : str) -> JobContent:
+    def run(self, linkedin_url : str) -> JobContent:
         """ Take in url to LinkedIn posting and produce the needed JobContent """
         source = self.getSource(linkedin_url)               # get source code of url website
-        builder = BuildJobContent(linkedin_url, source)     # create builder for job content
+        builder = _BuildJobContent(linkedin_url, source)     # create builder for job content
         return builder()
-        
-        raise NotImplementedError
     
     def getSource(linkedin_url):
         pass
