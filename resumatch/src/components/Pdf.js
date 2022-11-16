@@ -1,6 +1,7 @@
+import React from 'react'
 import PropsTypes from 'prop-types'
 import './styles/Pdf.css'
-import pdfIcon from './assets/pdf.png'
+import pdfIcon from '/dist/pdf.png'
 
 const Pdf = ({ name }) => {
   return (

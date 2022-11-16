@@ -1,3 +1,4 @@
+import React from 'react'
 import './styles/Resumes.css'
 import Pdf from './Pdf'
 import PropsTypes from 'prop-types'

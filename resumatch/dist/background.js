@@ -1,0 +1,1 @@
+chrome.browserAction.onClicked.addListener((function(e){chrome.tabs.query({active:!0,currentWindow:!0},(e=>{chrome.tabs.sendMessage(e[0].id,{type:"popup-modal"})}))}));
