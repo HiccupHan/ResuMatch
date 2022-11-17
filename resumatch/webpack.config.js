@@ -10,27 +10,27 @@ module.exports = {
         historyApiFallback: true
     },
     entry: {
-        // Bundle dosyaları olarak kullanacağımız componentleri ayrı ayrı olarak tanımlıyoruz. webpack bu dosyaları'daki react componentleri js dosyasına dönüştürecek
+        
         popup: path.resolve(__dirname, './src/indexJS/indexPopup.js'),
         options: path.resolve(__dirname, './src/indexJS/indexOptions.js'),
         pdfUpload: path.resolve(__dirname, './src/indexJS/indexPdfUpload.js')
     },
     output: {
-        // entry da belirlediğimiz tüm copnenetlerin isimlendirmesini  [compenent_adı].bundle.js'
+        
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'), // webpack oluşturduğu dosyaları dist klasörünün iöerisini taşıyacak
+        path: path.resolve(__dirname, 'dist'), 
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx|tsx)$/, //webpack bu uzantıları babel ile js olarak dönüştürecek
+                test: /\.(js|jsx|tsx)$/, 
                 use: [
                     {
                         loader: 'babel-loader',
                         options: {
                             presets: [
                                 '@babel/preset-env',
-                                '@babel/preset-react', // uygulamanın react olduğunu belirtiyoruz
+                                '@babel/preset-react', 
                                 {
                                     'plugins': ['@babel/plugin-proposal-class-properties']
                                 }
@@ -45,8 +45,8 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ['style-loader','css-loader'], //csslerimin de webpack tarafında yorumlanması için loaderları tanımlıyoruz. çalışma şekli sağdan sola doğrudur.
-                // önce css-loader sonra style loader çalışacak
+                use: ['style-loader','css-loader'], 
+                
             },
             {
                 test: /\.(png|jpg|gif|svg|eot|ttf|woff)$/,
@@ -55,7 +55,7 @@ module.exports = {
         ]
     },
     plugins: [
-        // aşağıdaki dosyları extensiona taşıyoruz. ilemin sonunda yukarıda oluşturduğumuz bundle dosyalar bu sayfalar script olarak ekelenecek.
+        
         new HtmlWebpackPlugin({
             filename: 'popup.html',
             template: 'src/pages/popup.html',
@@ -71,7 +71,7 @@ module.exports = {
             template: 'src/pages/pdfUpload.html',
             chunks: ['pdfUpload']
         }),
-        // aşağıdaki dosyalarda herhangi bir işlem yapmadan olduğu gibi dist dosyasına copyalıyoruzz
+        
         new CopyWebpackPlugin({
             patterns: [
                 {from: 'src/img/*.png', to: '[name][ext]'},
