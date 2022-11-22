@@ -1,3 +1,8 @@
-chrome.browserAction.onClicked.addListener(function (tab) { chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, { type: "popup-modal" });
-    }) });
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+  if(changeInfo.status == 'complete'){
+    chrome.scripting.executeScript({
+      files: ['injectedScript.js'],
+      target: {tabId: tab.id}
+    });
+  }  
+  });

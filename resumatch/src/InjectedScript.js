@@ -1,31 +1,71 @@
-chrome.runtime.onMessage.addListener((request) => {
-    if(request.type === 'popup-modal'){
-    showModal();
+if (typeof init == 'undefined') {
+    const host = document.createElement('div');
+    host.className = 'shadow-host';
+    function init() {
+        document.body.prepend(host);
+
+        var shadowRoot = document.querySelector('.shadow-host').attachShadow({ mode: 'open' });
+
+        const injectedElement = document.createElement('div');
+        injectedElement.className = ('upload-container');
+        injectedElement.innerHTML = `
+        <style>
+        .upload-container{
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(129,129,129,0.6);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;}
+        </style>
+        <div className='upload-window' 
+        style='width: 50vw; 
+            height: 60vh; 
+            border-style: solid;
+            border-width: 2px;
+            border-color: black;
+            border-radius: 4px; 
+            background-color: black;
+            display: grid;
+            grid-template-columns: 1fr 6fr 1fr;'>
+        <button className='close-btn'
+        style= 'justify-self: right; 
+            height: 30px;
+            width: 30px;
+            text-align: center;
+            box-sizing: border-box;
+            grid-column-start: 3;'> X </button>
+        <div className='upload-box' 
+        style= 'background-color: white;
+            margin: 0;
+            padding: 0;
+            border-style: dotted;
+            border-color: black;
+            border-radius: 4px;
+            justify-self: center;
+            align-self: center;
+            grid-column-start: 2;
+            grid-row-start: 1;
+            width: 100%;
+            height: 80%;'>
+        upload your pdf</div>
+        </div>`;
+        shadowRoot.appendChild(injectedElement);
     }
-    })
-    const showModal = () => {
-    const modal = document.createElement("dialog");
-    modal.setAttribute(
-    "style",`
-    height:450px;
-    border: none;
-    top:150px;
-    border-radius:20px;
-    background-color:white;
-    position: fixed; box-shadow: 0px 12px 48px rgba(29, 5, 64, 0.32);
-    `
-    );
-    modal.innerHTML = `<iframe id="popup-content"; style="height:100%"></iframe>
-    <div style="position:absolute; top:0px; left:5px;">
-    <button style="padding: 8px 12px; font-size: 16px; border: none; border-radius: 20px;">x</button>
-    </div>`;
-    document.body.appendChild(modal);
-    const dialog = document.querySelector("dialog");
-    dialog.showModal();
-    const iframe = document.getElementById("popup-content");
-    iframe.src = chrome.extension.getURL("index.html");
-    iframe.frameBorder = 0;
-    dialog.querySelector("button").addEventListener("click", () => {
-    dialog.close();
+
+    chrome.runtime.onMessage.addListener((request) => {
+        if (request.type === 'open-modal') {
+            init();
+        }
     });
-    }
+
+    chrome.runtime.onMessage.addListener((request) => {
+        if (request.type === 'close-modal') {
+            document.body.removeChild(host);
+        }
+    }); 
+}
+
+

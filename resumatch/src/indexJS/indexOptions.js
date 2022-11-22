@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom'
 
-import Popup from '../js/Popup.js'
+import Options from '../js/Options.js'
 
-render(<Popup />, document.querySelector('#options'));
+render(<Options />, document.querySelector('#options'));
