@@ -1,5 +1,3 @@
-import { func } from "prop-types";
-
 if (typeof init == 'undefined') {
     const host = document.createElement('div');
     host.className = 'shadow-host';
@@ -63,6 +61,15 @@ if (typeof init == 'undefined') {
     }
     init();
 
+    function closeWindow() {
+        const theButton = document.querySelector('.shadow-host').shadowRoot.querySelector('.close-btn');
+        theButton.addEventListener('click', function () {
+            const uploadModal = document.querySelector('.shadow-host').shadowRoot.querySelector('.upload-container');
+            uploadModal.style.display = 'none';
+        });
+    }
+    closeWindow();
+
     chrome.runtime.onMessage.addListener((request) => {
         if (request.type === 'open-modal') {
             const uploadModal = document.querySelector('.shadow-host').shadowRoot.querySelector('.upload-container');
@@ -77,12 +84,7 @@ if (typeof init == 'undefined') {
         }
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var theButton = document.querySelector('.shadow-host').shadowRoot.querySelector('.close-btn');
-        theButton.addEventListener('click', function() {
-            alert('damn');
-        });
-    });
+
 }
 
 
