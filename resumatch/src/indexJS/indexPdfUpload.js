@@ -1,6 +1,10 @@
 import React from 'react';
 import {render} from 'react-dom'
 
-import Popup from '../js/Popup.js'
+import PdfUpload from '../components/PdfUpload.js'
 
-render(<Popup />, document.querySelector('#pdf-upload'));
+const pdfUpload = document.getElementById('pdf-upload');
+if (pdfUpload !== null){
+    render(<PdfUpload />, pdfUpload);
+}
+

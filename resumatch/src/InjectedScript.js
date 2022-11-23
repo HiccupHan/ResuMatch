@@ -1,3 +1,5 @@
+import { func } from "prop-types";
+
 if (typeof init == 'undefined') {
     const host = document.createElement('div');
     host.className = 'shadow-host';
@@ -7,65 +9,80 @@ if (typeof init == 'undefined') {
         var shadowRoot = document.querySelector('.shadow-host').attachShadow({ mode: 'open' });
 
         const injectedElement = document.createElement('div');
-        injectedElement.className = ('upload-container');
-        injectedElement.innerHTML = `
-        <style>
-        .upload-container{
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(129,129,129,0.6);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;}
-        </style>
-        <div className='upload-window' 
-        style='width: 50vw; 
-            height: 60vh; 
-            border-style: solid;
-            border-width: 2px;
-            border-color: black;
-            border-radius: 4px; 
-            background-color: black;
-            display: grid;
-            grid-template-columns: 1fr 6fr 1fr;'>
-        <button className='close-btn'
-        style= 'justify-self: right; 
-            height: 30px;
-            width: 30px;
-            text-align: center;
-            box-sizing: border-box;
-            grid-column-start: 3;'> X </button>
-        <div className='upload-box' 
-        style= 'background-color: white;
-            margin: 0;
-            padding: 0;
-            border-style: dotted;
-            border-color: black;
-            border-radius: 4px;
-            justify-self: center;
-            align-self: center;
-            grid-column-start: 2;
-            grid-row-start: 1;
-            width: 100%;
-            height: 80%;'>
-        upload your pdf</div>
-        </div>`;
+        injectedElement.className = 'upload-container';
+        injectedElement.style.position = 'fixed';
+        injectedElement.style.width = '100vw';
+        injectedElement.style.height = '100vh';
+        injectedElement.style.backgroundColor = 'rgba(129,129,129,0.6)';
+        injectedElement.style.zIndex = '1000';
+        injectedElement.style.display = 'none';
+        injectedElement.style.justifyContent = 'center';
+        injectedElement.style.alignItems = 'center';
+
+        const uploadWindow = document.createElement('div');
+        uploadWindow.className = 'upload-window';
+        uploadWindow.style.width = '50vw';
+        uploadWindow.style.height = '60vh';
+        uploadWindow.style.borderStyle = 'solid';
+        uploadWindow.style.borderWidth = '2px';
+        uploadWindow.style.borderColor = 'black';
+        uploadWindow.style.borderRadius = '4px';
+        uploadWindow.style.backgroundColor = 'black';
+        uploadWindow.style.display = 'grid';
+        uploadWindow.style.gridTemplateColumns = '1fr 6fr 1fr';
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'close-btn';
+        closeBtn.style.height = '30px';
+        closeBtn.style.width = '30px';
+        closeBtn.style.textAlign = 'center';
+        closeBtn.style.boxSizing = 'border-box';
+        closeBtn.style.gridColumnStart = '3';
+        closeBtn.style.justifySelf = 'right';
+        closeBtn.innerHTML = 'X';
+
+        const uploadBox = document.createElement('div');
+        uploadBox.className = 'upload-box';
+        uploadBox.style.width = '100%'
+        uploadBox.style.height = '80%'
+        uploadBox.style.borderStyle = 'dotted';
+        uploadBox.style.borderColor = 'black';
+        uploadBox.style.backgroundColor = 'white';
+        uploadBox.style.borderRadius = '4px';
+        uploadBox.style.justifySelf = 'center';
+        uploadBox.style.alignSelf = 'center';
+        uploadBox.style.gridColumnStart = '2';
+        uploadBox.style.gridRowStart = '1';
+        uploadBox.style.textAlign = 'center';
+        uploadBox.innerHTML = 'Upload your PDF'
+
+        uploadWindow.appendChild(closeBtn);
+        uploadWindow.appendChild(uploadBox);
+        injectedElement.appendChild(uploadWindow);
         shadowRoot.appendChild(injectedElement);
     }
+    init();
 
     chrome.runtime.onMessage.addListener((request) => {
         if (request.type === 'open-modal') {
-            init();
+            const uploadModal = document.querySelector('.shadow-host').shadowRoot.querySelector('.upload-container');
+            uploadModal.style.display = 'flex';
         }
     });
 
     chrome.runtime.onMessage.addListener((request) => {
         if (request.type === 'close-modal') {
-            document.body.removeChild(host);
+            const uploadModal = document.querySelector('.shadow-host').shadowRoot.querySelector('.upload-container');
+            uploadModal.style.display = 'none';
         }
-    }); 
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var theButton = document.querySelector('.shadow-host').shadowRoot.querySelector('.close-btn');
+        theButton.addEventListener('click', function() {
+            alert('damn');
+        });
+    });
 }
 
 
