@@ -2,7 +2,7 @@
 # Team members: Jagrit Digani, Junkai Zhang, Yuanzhou Chen, Xuanzhe Han, Qiwei Di, Yiwen Kou
 # ResuMatch: a chrome extension that matches your resume to LinkedIn job postings. Built with React
 
-### Download the release files and run `npm install`
+### Download the release files, `cd resumatch` and run `npm install`
 
 The command will install all missing dependencies.
 
