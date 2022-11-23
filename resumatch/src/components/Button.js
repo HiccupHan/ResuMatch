@@ -1,3 +1,4 @@
+import React from 'react'
 import PropsTypes from 'prop-types'
 
 const Button = ({ name, style, func }) => {

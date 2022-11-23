@@ -1,0 +1,1 @@
+chrome.tabs.onUpdated.addListener((function(t,e,c){"complete"==e.status&&chrome.scripting.executeScript({files:["injectedScript.js"],target:{tabId:c.id}})}));
