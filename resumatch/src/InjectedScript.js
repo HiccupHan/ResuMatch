@@ -1,7 +1,7 @@
 if (typeof init == 'undefined') {
-    const host = document.createElement('div');
-    host.className = 'shadow-host';
     function init() {
+        const host = document.createElement('div');
+        host.className = 'shadow-host';
         document.body.prepend(host);
 
         var shadowRoot = document.querySelector('.shadow-host').attachShadow({ mode: 'open' });
