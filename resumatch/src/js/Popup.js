@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header.js'
 import MatchResults from '../components/MatchResults.js'
 import Resumes from '../components/Resumes.js'
 import Button from '../components/Button.js'
+import Login from '../components/Login.js'
 import './styles/Popup.css'
 
 function Popup() {
@@ -12,9 +13,12 @@ function Popup() {
     });
   }
 
+  const [isOpen, setOpen] = useState(false)
+
   return (
     <div className='popup-body'>
-    <Header />
+    <Login open={isOpen } setClose={()=>setOpen(false)}/>
+    <Header name={'Mike'} openLogin={()=>setOpen(true)}/>
     <MatchResults numberOfStars={3}/>
     <Resumes numResumes={4}/>
     <div className='footer'><Button name={'Upload Resume'} func={openModal}/></div>
