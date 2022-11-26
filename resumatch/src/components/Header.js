@@ -10,7 +10,7 @@ const Header = ({ name, openLogin }) => {
       <h1>ResuMatch</h1>
       <div className='login-info'>
         <h2>{name}</h2>
-        <Button name={'login'} style={btnStyle} func={ openLogin }/>
+        <Button name={'sign out'} style={btnStyle} func={ openLogin }/>
       </div>
 
     </header>
@@ -24,6 +24,6 @@ Header.propsTypes = {
   name: PropsTypes.string,
 }
 
-const btnStyle = {backgroundColor: 'green', border: 'none', borderRadius: '4px', margin: '10px', gridColumn: '3'}
+const btnStyle = {backgroundColor: 'red', border: 'none', borderRadius: '4px', margin: '10px', gridColumn: '3', width:'60px' }
 
 export default Header

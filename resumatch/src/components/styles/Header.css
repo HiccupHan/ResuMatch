@@ -14,7 +14,7 @@ h1 {
 
 .login-info {
   display: grid;
-  grid-template-columns:1fr 2fr 0.5fr;
+  grid-template-columns:1fr 2fr 1fr;
 }
 
 h2 {
