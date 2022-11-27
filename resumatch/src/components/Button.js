@@ -1,6 +1,7 @@
 import React from 'react'
 import PropsTypes from 'prop-types'
 
+//component takes in a name to be displayed on the button, styling, and a function to be performed on click
 const Button = ({ name, style, func }) => {
   return (
     <button className='btn' onClick={func} style={style} >{name}</button>

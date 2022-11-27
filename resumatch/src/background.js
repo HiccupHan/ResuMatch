@@ -1,3 +1,4 @@
+//inject script into every webpage
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status == 'complete') {
     chrome.scripting.executeScript({

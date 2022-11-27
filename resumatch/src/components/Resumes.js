@@ -3,24 +3,21 @@ import './styles/Resumes.css'
 import Pdf from './Pdf'
 import PropsTypes from 'prop-types'
 
-const Resumes = ({numResumes}) => {
-  var resumes = [];
-  for(var i = 0; i<numResumes;i++){
-    resumes.push(<Pdf name={'resume.pdf'}/>);
-  }
-
+//takes in an array of resume file names, and renders out a series of file icons
+const Resumes = ({ resumeArray }) => {
+  const resumeList = resumeArray.map((pdf)  => <Pdf name={pdf}/>);
   return (
     <div className="content-box">
-      {resumes}
+      {resumeList}
     </div> 
 
   )
 }
 
 Resumes.defaultProps = {
-  numResumes: 0,
+  resumeArray: [],
 }
 Resumes.propsTypes = {
-  numResumes: PropsTypes.number,
+  resumeArray: PropsTypes.array,
 }
 export default Resumes

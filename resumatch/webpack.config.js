@@ -10,7 +10,7 @@ module.exports = {
         historyApiFallback: true
     },
     entry: {
-        
+        //bundle the javascript files
         popup: path.resolve(__dirname, './src/indexJS/indexPopup.js'),
         options: path.resolve(__dirname, './src/indexJS/indexOptions.js'),
         pdfUpload: path.resolve(__dirname, './src/indexJS/indexPdfUpload.js')

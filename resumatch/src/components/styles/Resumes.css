@@ -3,4 +3,6 @@
     border-color: black;
     border-width: 1px;
     height: 53vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }

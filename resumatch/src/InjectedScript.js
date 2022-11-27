@@ -1,9 +1,15 @@
+//note: scripts cannot be inserted in an html tag since it breaks security policies for many websites
+//reference this page: https://stackoverflow.com/questions/9515704/access-variables-and-functions-defined-in-page-context-using-a-content-script
+
+//if prevent multiple injects on page refresh
 if (typeof init == 'undefined') {
     function init() {
         const host = document.createElement('div');
         host.className = 'shadow-host';
         document.body.prepend(host);
 
+        //creates shadow root
+        //note: to access shadow root inner elements, do document.querySelector('.shadow-host').shadowRoot then query the element name
         var shadowRoot = document.querySelector('.shadow-host').attachShadow({ mode: 'open' });
 
         const injectedElement = document.createElement('div');
@@ -61,6 +67,7 @@ if (typeof init == 'undefined') {
     }
     init();
 
+    //assign click event listener to the close button in the popup menu and allow it to close the pop up menu
     function closeWindow() {
         const theButton = document.querySelector('.shadow-host').shadowRoot.querySelector('.close-btn');
         theButton.addEventListener('click', function () {
@@ -70,6 +77,7 @@ if (typeof init == 'undefined') {
     }
     closeWindow();
 
+    //open and close modal on chrome message
     chrome.runtime.onMessage.addListener((request) => {
         if (request.type === 'open-modal') {
             const uploadModal = document.querySelector('.shadow-host').shadowRoot.querySelector('.upload-container');

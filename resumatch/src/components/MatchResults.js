@@ -3,7 +3,11 @@ import star from '/dist/star.png'
 import PropsTypes from 'prop-types'
 import './styles/MatchResults.css'
 
+//takes in a number and renders stars according to that number
 const MatchResults = ({ numberOfStars }) => {
+    if (numberOfStars > 5){
+        numberOfStars = 5;
+    }
     var stars = [];
     for (var i = 0; i < numberOfStars; i++) {
         stars.push(<img className='star' key={i} src={star} alt='not found'></img>);

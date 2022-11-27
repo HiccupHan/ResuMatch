@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
 import './styles/Login.css'
 import Button from './Button.js'
+import PropsTypes from 'prop-types'
 
 const Login = ({ open, setClose, setOpen, setName }) => {
+  //don't display anything if it shouldn't be opened
   if (!open) return null
 
+  //indicates if the signup page is open
   const [needSignup, setSignup] = useState(false);
 
-  const getUserInput = () => {
+  //signin uses chrome storage
+  const signIn = () => {
+    //grabs user input
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
+
     if (username == '' || password == '') {
       alert('Enter username and password');
       return false;
@@ -31,7 +37,8 @@ const Login = ({ open, setClose, setOpen, setName }) => {
     })
   }
 
-  function setupAccount() {
+  //signup uses chrome storage
+  const setupAccount = () => {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
@@ -60,6 +67,7 @@ const Login = ({ open, setClose, setOpen, setName }) => {
     });
   }
 
+  //display signup page
   if (needSignup) {
     return (
       <div className='login-container'>
@@ -69,7 +77,7 @@ const Login = ({ open, setClose, setOpen, setName }) => {
             <label for='username' className='username-label'>username: </label>
             <input type='text' id='username' className='username'></input>
             <label for='password' className='password-label'>password: </label>
-            <input type='text' id='password' className='password'></input>
+            <input type='password' id='password' className='password'></input>
             <Button name={'Sign up'} style={signinBtnStyle} func={setupAccount} />
           </form>
         </div>
@@ -77,6 +85,7 @@ const Login = ({ open, setClose, setOpen, setName }) => {
     )
   }
 
+  //default: displays login page
   return (
     <div className='login-container'>
       <div className='login-window'>
@@ -84,8 +93,8 @@ const Login = ({ open, setClose, setOpen, setName }) => {
           <label for='username' className='username-label'>username: </label>
           <input type='text' id='username' className='username'></input>
           <label for='password' className='password-label'>password: </label>
-          <input type='text' id='password' className='password'></input>
-          <Button name={'Sign in'} style={signinBtnStyle} func={getUserInput} />
+          <input type='password' id='password' className='password'></input>
+          <Button name={'Sign in'} style={signinBtnStyle} func={signIn} />
           <Button name={'Sign up'} style={signupBtnStyle} func={() => setSignup(true)} />
         </form>
       </div>
@@ -96,5 +105,19 @@ const Login = ({ open, setClose, setOpen, setName }) => {
 const closeBtnStyle = { width: '25px', height: '25px', textAlign: 'center', backgroundColor: 'grey', justifySelf: 'right', gridColumnStart: '2' }
 const signinBtnStyle = { width: '62px', textAlign: 'center', backgroundColor: 'grey', gridRowStart: '4', gridColumnStart: '2' }
 const signupBtnStyle = { width: '62px', marginLeft: '4px', textAlign: 'center', backgroundColor: 'grey', gridRowStart: '4', gridColumnStart: '3' }
+
+Login.defaultProps ={
+  open: true,
+  setClose: ()=>console.log('No close login function!'),
+  setOpen: ()=>console.log('No open login function!'),
+  setName: ()=>console.log('No set username function!'),
+}
+
+Login.propsTypes = {
+  open: PropsTypes.bool,
+  setClose: PropsTypes.func,
+  setOpen: PropsTypes.func,
+  setName: PropsTypes.func,
+}
 
 export default Login

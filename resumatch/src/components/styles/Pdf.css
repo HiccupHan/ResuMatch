@@ -8,6 +8,7 @@
     height: 50px;
     display: flex;
     align-items: center;
+    overflow: hidden;
 }
 
 .pdf-icon{
