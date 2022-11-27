@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './styles/Login.css'
 import Button from './Button.js'
 
-const Login = ({ open, setClose, setOpen }) => {
+const Login = ({ open, setClose, setOpen, setName }) => {
   if (!open) return null
 
   const [needSignup, setSignup] = useState(false);
@@ -10,13 +10,19 @@ const Login = ({ open, setClose, setOpen }) => {
   const getUserInput = () => {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
-    chrome.storage.local.get(username, function(result) {
-      if(typeof result[username] === 'undefined'){
+    if (username == '' || password == '') {
+      alert('Enter username and password');
+      return false;
+    }
+
+    chrome.storage.local.get(username, function (result) {
+      if (typeof result[username] === 'undefined') {
         alert('wrong username or sign up first')
         setOpen();
       }
-      else if (result[username] == password){
+      else if (result[username] == password) {
         setClose();
+        setName(username);
       }
       else {
         alert('wrong password');
@@ -28,8 +34,24 @@ const Login = ({ open, setClose, setOpen }) => {
   function setupAccount() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
-    chrome.storage.local.get(username, function(result) {
-      if(typeof result[username] === 'undefined'){
+
+    if (username == '' || password == '') {
+      alert('Enter username and password');
+      return false;
+    }
+
+    else if (username.length > 10) {
+      alert('Username can be at most 10 characters long');
+      return false;
+    }
+
+    else if (password.length < 4) {
+      alert('Password needs to be at least 4 characters');
+      return false;
+    }
+
+    chrome.storage.local.get(username, function (result) {
+      if (typeof result[username] === 'undefined') {
         chrome.storage.local.set({ [username]: password });
       }
       else {
@@ -43,7 +65,7 @@ const Login = ({ open, setClose, setOpen }) => {
       <div className='login-container'>
         <div className='login-window'>
           <Button name={'X'} style={closeBtnStyle} func={() => setSignup(false)} />
-          <form className='login-form'>
+          <form className='signin-form'>
             <label for='username' className='username-label'>username: </label>
             <input type='text' id='username' className='username'></input>
             <label for='password' className='password-label'>password: </label>

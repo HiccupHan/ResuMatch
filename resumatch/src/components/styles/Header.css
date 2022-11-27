@@ -14,12 +14,12 @@ h1 {
 
 .login-info {
   display: grid;
-  grid-template-columns:1fr 2fr 1fr;
+  grid-template-columns:2fr 1.5fr 1fr;
 }
 
 h2 {
-  text-align: right;
+  text-align: left;
+  margin-left: 10px;
   font-size: 12px;
   padding-bottom: 0.2em;
-  padding-right: 0.1em;
 }

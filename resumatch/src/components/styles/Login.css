@@ -18,7 +18,17 @@
     justify-content: center;
 }
 
+.signin-form {
+    display: grid;
+    grid-template-columns: 20px 1fr 6fr;
+    grid-template-rows: 8px 30px 30px 25px 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 20px;
+    align-items: center;
+}
+
 .login-form {
+    margin-top: 31px;
     display: grid;
     grid-template-columns: 20px 1fr 6fr;
     grid-template-rows: 8px 30px 30px 25px 1fr;
@@ -45,4 +55,7 @@
 .password-label {
     grid-row-start: 3;
     grid-column-start: 2;
+}
+.place-holder {
+    height: 25px;
 }
