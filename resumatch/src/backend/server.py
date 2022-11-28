@@ -37,14 +37,16 @@ def _scores(linkedin_url):
 
     resumes = get_data_json(get_db())["resumes"]
     rscores = {}
+    rs = []
     for entry in resumes: 
         if entry["file_name"] != "None": 
             rscores[entry["file_name"]] = Analyzer.get_score(entry["raw_text"], job_description)
+            rs.append(rscores[entry["file_name"]] )
 
     print(rscores)
     print(resumes)
     
-    return rscores
+    return rs
 
 @app.on_event("shutdown")
 def shutdown_event():

@@ -62,14 +62,14 @@ function Popup() {
       setNumStars(result.resumeScores);
     })
 
-    const request = new Request('http://localhost:8000/resume_names', { method: 'POST' });
-    fetch(request)
-      .then((response) => response.json())
-      .then((data) => {
-        chrome.storage.local.set({ 'storedResumes': data });
-        setResumes(data);
-        console.log(data);
-      });
+    // const request = new Request('http://localhost:8000/resume_names', { method: 'POST' });
+    // fetch(request)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     chrome.storage.local.set({ 'storedResumes': data });
+    //     setResumes(data);
+    //     console.log(data);
+    //   });
 
     //set up storedResumes in chrome storage, stores an array of resume file names
     chrome.storage.local.get(['storedResumes'], function (result) {
@@ -105,7 +105,7 @@ function Popup() {
       chrome.tabs.sendMessage(tabs[0].id, { type: "analyze" });
       var tab = tabs[0];
 
-      const request = new Request('http://localhost:8000/scores', { method: 'GET', query: { 'linkedin_url': tab.url } });
+      const request = new Request('http://localhost:8000/scores?linkedin_url=https://www.linkedin.com/jobs/view/3371068785', { method: 'GET'});
       fetch(request)
         .then((response) => response.json())
         .then((data) => {
