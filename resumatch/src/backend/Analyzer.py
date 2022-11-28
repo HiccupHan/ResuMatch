@@ -26,6 +26,10 @@ class Analyzer:
         pass
 
     @staticmethod
+    def run_nlp(raw_text): 
+        return Analyzer.nlp(raw_text)
+
+    @staticmethod
     def get_skills(raw_text):
         doc = Analyzer.nlp(raw_text)
         skills = []

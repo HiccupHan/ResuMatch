@@ -22,10 +22,11 @@ Open Chrome extension page, turn on developer mode, then click `Load Unpacked` a
 
 Set up conda virtual environment using 
 `conda env create -n resumatch python=3.10`
+`conda activate resumatch`
 `conda install -c conda-forge spacy`
 `pip install streamlit`
 `pip install spacy-streamlit`
-`conda activate resumatch`
+`pip install "fastapi[all]`
 
 Then download the necessary files and models for the NLP analysis 
 `python -m spacy download en_core_web_lg`
@@ -35,5 +36,5 @@ Launch backend server using
 `cd resumatch/src/backend/` 
 `uvicorn server:app --reload`
 
-Launch upload page using (from main dir)
-`streamlit run resumatch/src/ResuMatch.py `
+Launch upload page using (from resumatch dir)
+`streamlit run src/ResuMatch.py `

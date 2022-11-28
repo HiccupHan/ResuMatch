@@ -1,6 +1,9 @@
 import streamlit as st
 import os
 import requests
+import spacy_streamlit
+
+from backend.Analyzer import Analyzer
 
 def upload_page(): 
     
@@ -29,5 +32,11 @@ def upload_page():
     st.subheader("Select Resume")
     selection = st.selectbox("Uploaded Resumes", st.session_state["resume_names"])
     print(st.session_state["resume_names"])
+
+    if selection != "None": 
+        resumes = requests.post("http://localhost:8000/resumes").json()
+        for r in resumes: 
+            if r["file_name"] == selection: 
+                spacy_streamlit.visualize_ner(Analyzer.nlp(r["raw_text"]))
 
 upload_page()

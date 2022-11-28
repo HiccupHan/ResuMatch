@@ -23,7 +23,11 @@ def get_data_json(db):
 
 def get_resume_names(db):
     user_data_dict = get_data_json(db)
-    return [r["file_name"] for r in user_data_dict["resumes"]]
+    names = []
+    for r in user_data_dict["resumes"]: 
+        if r["file_name"] != "None": 
+            names.append(r["file_name"])
+    return names
 
 def add_resume(db, resume_file_path):
     user_data_dict = get_data_json(db)

@@ -21,9 +21,9 @@ def get_db():
 def _get_resume_names(): 
     return get_resume_names(get_db())
 
-@app.get("/resumes")
+@app.post("/resumes")
 def _get_data_json(): 
-    return get_data_json(get_db())
+    return get_data_json(get_db())["resumes"]
 
 @app.post("/add_resume")
 def _add_resume(resume_file_path): 
