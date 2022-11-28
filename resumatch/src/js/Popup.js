@@ -8,7 +8,7 @@ import './styles/Popup.css'
 
 //main UI for the extension
 function Popup() {
-  
+
   //uses chrome messaging api to send a message to injected content script, which will open the pdf upload pop up menu in the current webpage
   const openModal = () => {
     // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -86,13 +86,22 @@ function Popup() {
     chrome.storage.local.set({ 'currentUser': name });
   };
 
+  const matchResume = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { type: "analyze" });
+    });
+  }
+
   return (
     <div className='popup-body'>
       <Login open={isOpen} setClose={closeLogin} setOpen={openLogin} setName={setUsername} />
       <Header greeting={greeting} openLogin={openLogin} />
       <MatchResults numberOfStars={4} />
       <Resumes resumeArray={arrayOfResumes} />
-      <div className='footer'><Button name={'Upload Resume'} func={openModal} /></div>
+      <div className='footer'>
+        <Button name={'Upload Resume'} func={openModal} />
+        <Button name={'Match'} func={matchResume}/>
+      </div>
     </div>
   )
 }
