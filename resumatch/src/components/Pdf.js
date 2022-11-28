@@ -6,6 +6,7 @@ import pdfIcon from '/dist/pdf.png'
 
 //takes in a file name and creates a file icon
 const Pdf = ({ name }) => {
+  //remove file, to signal backend use chrome messaging api
   const removeSelf = () => {
     alert('Removing ' + name);
     chrome.storage.local.get(['storedResumes'], function (result) {
