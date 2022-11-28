@@ -6,8 +6,8 @@ Resources:
 """
 
 from dataclasses import dataclass
-from .JobParser import JobContent
-from .ResumeParser import ResumeContent
+# from .JobParser import JobContent
+# from .ResumeParser import ResumeContent
 
 import spacy
 import numpy as np 

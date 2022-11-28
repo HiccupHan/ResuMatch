@@ -15,7 +15,7 @@ function Popup() {
     //   chrome.tabs.sendMessage(tabs[0].id, { type: "open-modal" });
     // });
     chrome.tabs.create({
-      url: "http://localhost:8501/Upload"
+      url: "http://localhost:8501"
     })
 
     //chrome tabs sendMessage
@@ -53,14 +53,18 @@ function Popup() {
       }
     });
 
-    //to be deleted, exists for testing
-    // Post a request to the backend /resume_names -> array 
-    //chrome.storage.local.set({'storedResumes' : ['resume1.pdf', 'resume2.pdf', 'resume3.pdf', 'resume4.pdf', 'resume5.pdf', 'resume6.pdf', 'resume7.pdf']});
+    const request = new Request('http://localhost:8000/resume_names', {method: 'POST'});
+    fetch(request)
+    .then((response) => response.json())
+    .then((data) => {
+      chrome.storage.local.set({'storedResumes' : data});
+      setResumes(data);
+    });
 
     //set up storedResumes in chrome storage, stores an array of resume file names
     chrome.storage.local.get(['storedResumes'], function (result) {
       if (typeof result.storedResumes === 'undefined') {
-        chrome.storage.local.set({ 'storedResumes': ['resume1.pdf', 'resume2.pdf', 'resume3.pdf', 'resume4.pdf', 'resume5.pdf', 'resume6.pdf', 'resume7.pdf'] });
+        chrome.storage.local.set({ 'storedResumes': [] });
       }
       else {
         setResumes(result.storedResumes);
