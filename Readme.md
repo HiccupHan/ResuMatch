@@ -26,7 +26,10 @@ Set up conda virtual environment using
 `conda install -c conda-forge spacy`
 `pip install streamlit`
 `pip install spacy-streamlit`
+`pip install plyvel`
 `pip install "fastapi[all]`
+
+
 
 Then download the necessary files and models for the NLP analysis 
 `python -m spacy download en_core_web_lg`
