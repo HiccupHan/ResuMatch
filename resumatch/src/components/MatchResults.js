@@ -12,6 +12,9 @@ const MatchResults = ({ numberOfStars }) => {
     for (var i = 0; i < numberOfStars; i++) {
         stars.push(<img className='star' key={i} src={star} alt='not found'></img>);
     }
+    if(numberOfStars == 0){
+        stars = 'Click Match to Get Result';
+    }
     return (<div className='match-results'>{stars}</div>);
 }
 

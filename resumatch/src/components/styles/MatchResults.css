@@ -1,4 +1,5 @@
 .match-results {
+    height: 40px;
     border-bottom: solid;
     border-width: 1px;
     border-color: black;
@@ -8,6 +9,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    text-align: center;
   }
 
   .star {
