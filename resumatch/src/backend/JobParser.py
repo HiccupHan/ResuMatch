@@ -31,6 +31,15 @@ class JobContent:
         
         print("--- End of Job Content ---", file=ofile)
 
+    def get_str(self):
+        rstr = """"""
+        rstr += self.company + "\n"
+        rstr += self.job_title + "\n"
+        for d in self.desc: 
+            rstr += d + "\n"
+
+        return rstr
+
 class JobParser:
     """ Class that returns job content of given url when called """
     def __init__(self):

@@ -7,7 +7,7 @@ Resources:
 """
 
 from dataclasses import dataclass, field
-from pyresparser import ResumeParser as rparser
+# from pyresparser import ResumeParser as rparser
 
 import spacy
 from spacypdfreader import pdf_reader
@@ -56,8 +56,8 @@ class ResumeParser:
         doc = pdf_reader(file_path, ResumeParser.nlp)
         return doc.text
 
-    @staticmethod
-    def run(file_path: str) -> ResumeContent:
-        """ Take in a file path to a pdf containing the resume and produce the needed ResumeContent"""
-        rp = rparser(file_path).get_extracted_data()
-        return _ResumeContentAdapter().produceResumeContent(rp)
+    # @staticmethod
+    # def run(file_path: str) -> ResumeContent:
+    #     """ Take in a file path to a pdf containing the resume and produce the needed ResumeContent"""
+    #     rp = rparser(file_path).get_extracted_data()
+    #     return _ResumeContentAdapter().produceResumeContent(rp)

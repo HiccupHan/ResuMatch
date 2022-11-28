@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from Database import *
 from Analyzer import Analyzer
+from JobParser import JobParser
 
 # Store user data locally 
-user_data_dir = "./.resumatch"
+user_data_dir = ".resumatch"
 
 # Fast API App 
 app = FastAPI()
@@ -20,7 +21,7 @@ def get_db():
 def _get_resume_names(): 
     return get_resume_names(get_db())
 
-@app.post("/resumes")
+@app.get("/resumes")
 def _get_data_json(): 
     return get_data_json(get_db())
 
@@ -30,11 +31,20 @@ def _add_resume(resume_file_path):
 
 # Add a remove resume 
 
-@app.post("/scores")
+@app.get("/scores")
 def _scores(linkedin_url): 
+    job_description = JobParser.__call__(linkedin_url).get_str()
+
     resumes = get_data_json(get_db())["resumes"]
-    job_description = ""
-    return {entry["file_name"]:Analyzer.get_score(entry["raw_text"], job_description) for entry in resumes}
+    rscores = {}
+    for entry in resumes: 
+        if entry["file_name"] != "None": 
+            rscores[entry["file_name"]] = Analyzer.get_score(entry["raw_text"], job_description)
+
+    print(rscores)
+    print(resumes)
+    
+    return rscores
 
 @app.on_event("shutdown")
 def shutdown_event():

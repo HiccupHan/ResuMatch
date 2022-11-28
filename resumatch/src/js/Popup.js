@@ -59,6 +59,7 @@ function Popup() {
     .then((data) => {
       chrome.storage.local.set({'storedResumes' : data});
       setResumes(data);
+      console.log(data); 
     });
 
     //set up storedResumes in chrome storage, stores an array of resume file names
@@ -93,6 +94,15 @@ function Popup() {
   const matchResume = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, { type: "analyze" });
+      var tab = tabs[0];
+
+      const request = new Request('http://localhost:8000/scores', {method: 'GET', query: {'linkedin_url': tab.url}});
+      fetch(request)
+      .then((response) => response.json())
+      .then((data) => {
+        chrome.storage.local.set({'resumeScores' : data});
+      });
+
     });
   }
 
