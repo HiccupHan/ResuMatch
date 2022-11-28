@@ -59,9 +59,7 @@ function Popup() {
       if (typeof result.resumeScores === 'undefined') {
         chrome.storage.local.set({ 'resumeScores': 0 });
       }
-      else{
-        setNumStars(result.resumeScores);
-      }
+      setNumStars(result.resumeScores);
     })
 
     const request = new Request('http://localhost:8000/resume_names', { method: 'POST' });
@@ -111,8 +109,9 @@ function Popup() {
       fetch(request)
         .then((response) => response.json())
         .then((data) => {
-          chrome.storage.local.set({ 'resumeScores': data });
-          setNumStars(data);
+          starNum = parseInt(data);
+          chrome.storage.local.set({ 'resumeScores': starNum });
+          setNumStars(starNum);
         });
 
     });
