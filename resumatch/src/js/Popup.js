@@ -14,6 +14,9 @@ function Popup() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, { type: "open-modal" });
     });
+    chrome.tabs.create({
+      url: "http://localhost:8501/Upload"
+  })
   };
 
   //indicate if login page should be opened 

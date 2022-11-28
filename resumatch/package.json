@@ -6,7 +6,8 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.3"
+    "react-router-dom": "^6.4.3",
+    "streamlit-component-lib": "^1.4.0"
   },
   "scripts": {
     "build": "webpack-dev-server",
