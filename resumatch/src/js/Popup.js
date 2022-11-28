@@ -29,8 +29,6 @@ function Popup() {
   const [arrayOfResumes, setResumes] = useState([]);
   //number of stars
   const [numStars, setNumStars] = useState(0);
-  //resume scores
-  const [resumeScoreArray, setResumeScoreArray] = useState([]);
 
   //run set up
   useEffect(() => {
@@ -64,7 +62,6 @@ function Popup() {
       else{
         const starNum = Math.max(result.resumeScores);
         setNumStars(starNum);
-        setResumeScoreArray(result.resumeScores);
       }
       
     })
@@ -130,7 +127,7 @@ function Popup() {
       <Login open={isOpen} setClose={closeLogin} setOpen={openLogin} setName={setUsername} />
       <Header greeting={greeting} openLogin={openLogin} />
       <MatchResults numberOfStars={numStars} />
-      <Resumes resumeArray={arrayOfResumes} scoreArray={resumeScoreArray}/>
+      <Resumes resumeArray={arrayOfResumes} />
       <div className='footer'>
         <Button name={'Upload Resume'} func={openModal} />
         <Button name={'Match'} func={matchResume} />

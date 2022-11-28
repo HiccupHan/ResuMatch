@@ -5,7 +5,7 @@ import './styles/Pdf.css'
 import pdfIcon from '/dist/pdf.png'
 
 //takes in a file name and creates a file icon
-const Pdf = ({ name, number }) => {
+const Pdf = ({ name }) => {
   //remove file, to signal backend use chrome messaging api
   const removeSelf = () => {
     alert('Removing ' + name);
@@ -28,7 +28,7 @@ const Pdf = ({ name, number }) => {
   }
   return (
     <div className='display-container'>
-      <img className='pdf-icon' src={pdfIcon} alt='not found'></img>{name+number}
+      <img className='pdf-icon' src={pdfIcon} alt='not found'></img>{name}
       <Button name={'X'} style={btnStyle} func={removeSelf} />
     </div>
   )
