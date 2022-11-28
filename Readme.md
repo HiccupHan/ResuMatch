@@ -17,3 +17,17 @@ Your app is ready to be deployed!
 ### Load into Chrome browser
 
 Open Chrome extension page, turn on developer mode, then click `Load Unpacked` and load the dist folder. 
+
+### Setup on server side 
+
+Set up conda virtual environment using 
+`conda env create -f environment.yml`
+
+Then download the necessary files and models for the NLP analysis 
+`python -m spacy download en_core_web_lg`
+`python -m spacy download en_core_web_sm`
+
+Launch upload page using 
+`streamlit run resumatch/src/ResuMatch.py `
+
+Launch backend server using `uvicorn`
