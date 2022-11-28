@@ -27,6 +27,8 @@ function Popup() {
   const [greeting, setGreeting] = useState('Please Sign In');
   //array of resume file names 
   const [arrayOfResumes, setResumes] = useState([]);
+  //number of stars
+  const [numStars, setNumStars] = useState(0);
 
   //run set up
   useEffect(() => {
@@ -53,14 +55,23 @@ function Popup() {
       }
     });
 
-    const request = new Request('http://localhost:8000/resume_names', {method: 'POST'});
+    chrome.storage.local.get(['resumeScores'], function (result) {
+      if (typeof result.resumeScores === 'undefined') {
+        chrome.storage.local.set({ 'resumeScores': 0 });
+      }
+      else{
+        setNumStars(result.resumeScores);
+      }
+    })
+
+    const request = new Request('http://localhost:8000/resume_names', { method: 'POST' });
     fetch(request)
-    .then((response) => response.json())
-    .then((data) => {
-      chrome.storage.local.set({'storedResumes' : data});
-      setResumes(data);
-      console.log(data); 
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        chrome.storage.local.set({ 'storedResumes': data });
+        setResumes(data);
+        console.log(data);
+      });
 
     //set up storedResumes in chrome storage, stores an array of resume file names
     chrome.storage.local.get(['storedResumes'], function (result) {
@@ -96,12 +107,13 @@ function Popup() {
       chrome.tabs.sendMessage(tabs[0].id, { type: "analyze" });
       var tab = tabs[0];
 
-      const request = new Request('http://localhost:8000/scores', {method: 'GET', query: {'linkedin_url': tab.url}});
+      const request = new Request('http://localhost:8000/scores', { method: 'GET', query: { 'linkedin_url': tab.url } });
       fetch(request)
-      .then((response) => response.json())
-      .then((data) => {
-        chrome.storage.local.set({'resumeScores' : data});
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          chrome.storage.local.set({ 'resumeScores': data });
+          setNumStars(data);
+        });
 
     });
   }
@@ -110,11 +122,11 @@ function Popup() {
     <div className='popup-body'>
       <Login open={isOpen} setClose={closeLogin} setOpen={openLogin} setName={setUsername} />
       <Header greeting={greeting} openLogin={openLogin} />
-      <MatchResults numberOfStars={4} />
+      <MatchResults numberOfStars={numStars} />
       <Resumes resumeArray={arrayOfResumes} />
       <div className='footer'>
         <Button name={'Upload Resume'} func={openModal} />
-        <Button name={'Match'} func={matchResume}/>
+        <Button name={'Match'} func={matchResume} />
       </div>
     </div>
   )
