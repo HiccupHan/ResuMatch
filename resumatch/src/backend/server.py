@@ -23,9 +23,12 @@ def _get_data_json():
 def _add_resume(resume_file_path): 
     return add_resume(db, resume_file_path)
 
+# Add a remove resume 
+
 @app.post("/scores")
-def _scores(job_description): 
+def _scores(linkedin_url): 
     resumes = get_data_json(db)["resumes"]
+    job_description = ""
     return {entry["file_name"]:Analyzer.get_score(entry["raw_text"], job_description) for entry in resumes}
 
 

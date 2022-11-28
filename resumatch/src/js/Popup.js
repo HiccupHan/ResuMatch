@@ -11,12 +11,14 @@ function Popup() {
   
   //uses chrome messaging api to send a message to injected content script, which will open the pdf upload pop up menu in the current webpage
   const openModal = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { type: "open-modal" });
-    });
+    // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    //   chrome.tabs.sendMessage(tabs[0].id, { type: "open-modal" });
+    // });
     chrome.tabs.create({
       url: "http://localhost:8501/Upload"
-  })
+    })
+
+    //chrome tabs sendMessage
   };
 
   //indicate if login page should be opened 
@@ -52,6 +54,7 @@ function Popup() {
     });
 
     //to be deleted, exists for testing
+    // Post a request to the backend /resume_names -> array 
     //chrome.storage.local.set({'storedResumes' : ['resume1.pdf', 'resume2.pdf', 'resume3.pdf', 'resume4.pdf', 'resume5.pdf', 'resume6.pdf', 'resume7.pdf']});
 
     //set up storedResumes in chrome storage, stores an array of resume file names

@@ -78,19 +78,19 @@ if (typeof init == 'undefined') {
     closeWindow();
 
     //open and close modal on chrome message
-    chrome.runtime.onMessage.addListener((request) => {
-        if (request.type === 'open-modal') {
-            const uploadModal = document.querySelector('.shadow-host').shadowRoot.querySelector('.upload-container');
-            uploadModal.style.display = 'flex';
-        }
-    });
+    // chrome.runtime.onMessage.addListener((request) => {
+    //     if (request.type === 'open-modal') {
+    //         const uploadModal = document.querySelector('.shadow-host').shadowRoot.querySelector('.upload-container');
+    //         uploadModal.style.display = 'flex';
+    //     }
+    // });
 
-    chrome.runtime.onMessage.addListener((request) => {
-        if (request.type === 'close-modal') {
-            const uploadModal = document.querySelector('.shadow-host').shadowRoot.querySelector('.upload-container');
-            uploadModal.style.display = 'none';
-        }
-    });
+    // chrome.runtime.onMessage.addListener((request) => {
+    //     if (request.type === 'close-modal') {
+    //         const uploadModal = document.querySelector('.shadow-host').shadowRoot.querySelector('.upload-container');
+    //         uploadModal.style.display = 'none';
+    //     }
+    // });
 
 
 }
