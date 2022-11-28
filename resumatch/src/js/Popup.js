@@ -109,7 +109,7 @@ function Popup() {
       fetch(request)
         .then((response) => response.json())
         .then((data) => {
-          starNum = parseInt(data);
+          const starNum = parseInt(data);
           chrome.storage.local.set({ 'resumeScores': starNum });
           setNumStars(starNum);
         });
