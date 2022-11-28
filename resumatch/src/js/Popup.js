@@ -116,6 +116,7 @@ function Popup() {
           starNum = Math.max(data);
           setNumStars(starNum);
           chrome.storage.local.set({ 'resumeScores': data });
+          console.log(data)
         });
 
     });

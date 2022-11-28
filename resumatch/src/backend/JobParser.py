@@ -49,19 +49,10 @@ class JobParser:
     def __call__(linkedin_url : str, fout_name : str = None) -> JobContent:
         """ Take in url to LinkedIn posting and produce the needed JobContent """
         
-        try:
-            source_text = getSource(linkedin_url, fout_name)
-        except:
-            print('Unable to acquire source. ')
-            raise NotImplementedError
-        
+        source_text = getSource(linkedin_url, fout_name)
         builder = BuildJobContent(linkedin_url, source_text)
         
-        try: 
-            job_content = builder()
-            return job_content
-        except:
-            raise NotImplementedError
+        return builder()
 
 class BuildJobContent:
     """ Class to build job content dataclass based on web source """
