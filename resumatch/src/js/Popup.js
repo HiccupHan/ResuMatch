@@ -49,12 +49,12 @@ function Popup() {
     });
 
     //to be deleted, exists for testing
-    chrome.storage.local.set({'storedResumes' : ['resume1.pdf', 'resume2.pdf', 'resume3.pdf', 'resume4.pdf', 'resume5.pdf', 'resume6.pdf', 'resume7.pdf']});
+    //chrome.storage.local.set({'storedResumes' : ['resume1.pdf', 'resume2.pdf', 'resume3.pdf', 'resume4.pdf', 'resume5.pdf', 'resume6.pdf', 'resume7.pdf']});
 
     //set up storedResumes in chrome storage, stores an array of resume file names
     chrome.storage.local.get(['storedResumes'], function (result) {
       if (typeof result.storedResumes === 'undefined') {
-        chrome.storage.local.set({ 'storedResumes': [] });
+        chrome.storage.local.set({ 'storedResumes': ['resume1.pdf', 'resume2.pdf', 'resume3.pdf', 'resume4.pdf', 'resume5.pdf', 'resume6.pdf', 'resume7.pdf'] });
       }
       else {
         setResumes(result.storedResumes);
