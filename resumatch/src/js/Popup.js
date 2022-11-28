@@ -59,10 +59,10 @@ function Popup() {
       if (typeof result.resumeScores === 'undefined') {
         chrome.storage.local.set({ 'resumeScores': [] });
       }
-      else{
-        const starNum = Math.max(result.resumeScores);
-        setNumStars(starNum);
-      }
+      // else{
+      //   const starNum = Math.max(result.resumeScores);
+      //   setNumStars(starNum);
+      // }
       
     })
 
@@ -113,13 +113,13 @@ function Popup() {
       fetch(request)
         .then((response) => response.json())
         .then((data) => {
-          starNum = Math.max(data);
-          setNumStars(starNum);
           chrome.storage.local.set({ 'resumeScores': data });
           console.log(data)
         });
 
-    });
+    });          
+    const starNum = Math.floor(Math.random() * 6);
+    setNumStars(starNum);
   }
 
   return (
