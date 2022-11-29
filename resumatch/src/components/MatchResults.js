@@ -1,5 +1,5 @@
 import React from 'react'
-import star from '/dist/star.png'
+import star from '../img/star.png'
 import PropsTypes from 'prop-types'
 import './styles/MatchResults.css'
 

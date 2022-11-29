@@ -2,7 +2,7 @@ import React from 'react'
 import PropsTypes from 'prop-types'
 import Button from './Button'
 import './styles/Pdf.css'
-import pdfIcon from '/dist/pdf.png'
+import pdfIcon from '../img/pdf.png'
 import whiteStar from '../img/whitestar.png'
 
 //takes in a file name and creates a file icon

@@ -21,6 +21,7 @@ Open Chrome extension page, turn on developer mode, then click `Load Unpacked` a
 ### Setup on server side 
 
 Set up conda virtual environment using 
+(Note: install conda on your system https://docs.conda.io/en/latest/)
 `conda env create -n resumatch python=3.10`
 `conda activate resumatch`
 `conda install -c conda-forge spacy`
@@ -28,6 +29,7 @@ Set up conda virtual environment using
 `pip install spacy-streamlit`
 `pip install plyvel`
 `pip install "fastapi[all]`
+`pip install requests_html`
 
 
 
