@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import requests
 import spacy_streamlit
+import re
 
 from backend.Analyzer import Analyzer
 
@@ -37,6 +38,15 @@ def upload_page():
         resumes = requests.post("http://localhost:8000/resumes").json()
         for r in resumes: 
             if r["file_name"] == selection: 
-                spacy_streamlit.visualize_ner(Analyzer.nlp(r["raw_text"]))
+                raw_text = r["raw_text"].split("\n")
+                cleaned_lines = []
+
+                for i, s in enumerate(raw_text): 
+                    s = re.sub(r'\s+', " ", s)
+                    if(len(s) > 0 and s != " "): 
+                        cleaned_lines.append(s)
+                
+                raw_text = '\n'.join(cleaned_lines)
+                spacy_streamlit.visualize_ner(Analyzer.nlp(raw_text))
 
 upload_page()

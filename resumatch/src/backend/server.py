@@ -42,9 +42,6 @@ def _scores(linkedin_url):
         if entry["file_name"] != "None": 
             rscores[entry["file_name"]] = Analyzer.get_score(entry["raw_text"], job_description)
             rs.append(rscores[entry["file_name"]] )
-
-    print(rscores)
-    print(resumes)
     
     return rs
 
