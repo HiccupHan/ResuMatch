@@ -78,7 +78,7 @@ function Popup() {
     //set up storedResumes in chrome storage, stores an array of resume file names
     chrome.storage.local.get(['storedResumes'], function (result) {
       if (typeof result.storedResumes === 'undefined') {
-        chrome.storage.local.set({ 'storedResumes': [] });
+        chrome.storage.local.set({ 'storedResumes': ['resume1', 'resume2', 'resume3'] });
       }
       else {
         setResumes(result.storedResumes);
