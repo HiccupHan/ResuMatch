@@ -64,30 +64,25 @@ class BuildJobContent:
         self.soup = BeautifulSoup(source, "lxml")
     
     def __call__(self) -> JobContent:
-        try:
-            job_content = JobContent(
-                self.url, self.__getCompany(), self.__getJobTitle(), 
-                self.__getQual(), self.__getDesc(), self.__getSkills(), self.__getMisc()
-            )
-            return job_content
-        except:
-            raise NotImplementedError
-        
+        job_content = JobContent(
+            self.url, self.__getCompany(), self.__getJobTitle(), 
+            self.__getQual(), self.__getDesc(), self.__getSkills(), self.__getMisc()
+        )
+        return job_content
+    
     def __getCompany(self) -> str:
         try: 
             key_line = self.soup.find('a', {'class' : 'sub-nav-cta__optional-url'})
             return key_line['title']
         except:
-            print("Site content error: didn't find company name. ")
-            raise NotImplementedError
+            return ""
     
     def __getJobTitle(self) -> str:
         try:
             key_line = self.soup.find('h3', {'class' : 'sub-nav-cta__header'})
             return key_line.contents[0]
         except:
-            print("Site content error: didn't find job title. ")
-            raise NotImplementedError
+            return ""
     
     def __getQual(self) -> str:
         return None
@@ -98,8 +93,7 @@ class BuildJobContent:
                 {'class' : 'show-more-less-html__markup show-more-less-html__markup--clamp-after-5'})
             contents = key_line.contents
         except:
-            print("Site content error: didn't find job descriptions. ")
-            raise NotImplementedError
+            return ""
         
         new_contents = []
         for line in contents:

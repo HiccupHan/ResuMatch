@@ -111,7 +111,7 @@ function Popup() {
       chrome.tabs.sendMessage(tabs[0].id, { type: "analyze" });
       var tab = tabs[0];
 
-      const request = new Request('http://localhost:8000/scores?linkedin_url=https://www.linkedin.com/jobs/view/3371068785', { method: 'GET'});
+      const request = new Request('http://localhost:8000/scores?linkedin_url=' + tab.url, { method: 'GET'});
       fetch(request)
         .then((response) => response.json())
         .then((data) => {
