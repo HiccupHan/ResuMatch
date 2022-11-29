@@ -29,6 +29,8 @@ function Popup() {
   const [arrayOfResumes, setResumes] = useState([]);
   //number of stars
   const [numStars, setNumStars] = useState(0);
+  //scores of resumes
+  const [scoreArray, setScores] = useState([]);
 
   //run set up
   useEffect(() => {
@@ -78,7 +80,7 @@ function Popup() {
     //set up storedResumes in chrome storage, stores an array of resume file names
     chrome.storage.local.get(['storedResumes'], function (result) {
       if (typeof result.storedResumes === 'undefined') {
-        chrome.storage.local.set({ 'storedResumes': ['resume1', 'resume2', 'resume3'] });
+        chrome.storage.local.set({ 'storedResumes': [] });
       }
       else {
         setResumes(result.storedResumes);
@@ -113,13 +115,13 @@ function Popup() {
       fetch(request)
         .then((response) => response.json())
         .then((data) => {
-          chrome.storage.local.set({ 'resumeScores': data });
-          console.log(data)
+          const arrayOfScores = data.map((score) => Math.round(score));
+          chrome.storage.local.set({ 'resumeScores': arrayOfScores });
+          const numStars = Math.max(...arrayOfScores);
+          setNumStars(numStars);
+          setScores(arrayOfScores);
         });
-
     });          
-    const starNum = Math.floor(Math.random() * 6);
-    setNumStars(starNum);
   }
 
   return (
@@ -127,7 +129,7 @@ function Popup() {
       <Login open={isOpen} setClose={closeLogin} setOpen={openLogin} setName={setUsername} />
       <Header greeting={greeting} openLogin={openLogin} />
       <MatchResults numberOfStars={numStars} />
-      <Resumes resumeArray={arrayOfResumes} />
+      <Resumes resumeArray={arrayOfResumes} scoreArray={scoreArray} />
       <div className='footer'>
         <Button name={'Upload Resume'} func={openModal} />
         <Button name={'Match'} func={matchResume} />
