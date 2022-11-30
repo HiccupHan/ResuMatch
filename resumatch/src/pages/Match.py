@@ -19,7 +19,7 @@ st.title("Match Job Posting")
 
 # Get passed linked url if any 
 args = st.experimental_get_query_params()
-linkedin_url = args.get("linkedin_url", "") 
+linkedin_url = args.get("linkedin_url", [""])[0]
 
 # Link input 
 linkedin_url = st.text_input("LinkedIn Job Posting", value = linkedin_url)
@@ -54,7 +54,7 @@ if process_link:
         job_skills = set(Analyzer.get_skills(job_description))
 
         def display_skills(skills): 
-            s = [f'<a style="border-radius: 10px; background: gray; padding: 5px; display: inline-block; margin-bottom: 0.75rem; margin-right: 0.75rem"> {k} </a>' for k in skills]
+            s = [f'<a style="border-radius: 10px; background: beige; padding: 5px; display: inline-block; margin-bottom: 0.75rem; margin-right: 0.75rem"> {k} </a>' for k in skills]
             st.markdown('<div style="font-color:white">' + "\n".join(s) + "</div>", unsafe_allow_html=True)
 
         display_skills(job_skills)

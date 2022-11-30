@@ -21,6 +21,19 @@ function Popup() {
     //chrome tabs sendMessage
   };
 
+  const openAdditonal = () => {
+
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { type: "analyze" });
+      var tab = tabs[0];
+
+      chrome.tabs.create({
+        url: "http://localhost:8501/Match?linkedin_url=" + tab.url
+      });
+    });  
+  };
+
+
   //indicate if login page should be opened 
   const [isOpen, setOpen] = useState(false);
   //sets the greeting phrase used by Header
@@ -130,6 +143,7 @@ function Popup() {
       <div className='footer'>
         <Button name={'Upload Resume'} func={openModal} />
         <Button name={'Match'} func={matchResume} />
+        <Button name={'More'} func={openAdditonal} />
       </div>
     </div>
   )
