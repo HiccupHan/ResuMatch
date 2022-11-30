@@ -38,10 +38,13 @@ class Analyzer:
             if ent.label_ == "SKILL" or ent.label_ == "PRODUCT":
                 skills.append(ent.text)
 
+        skills = [s.lower() for s in skills]
+        skills.sort()
+
         return skills
 
     @staticmethod
-    def get_score(resume_raw_text, job_desc_raw_text): 
+    def get_domain_score(resume_raw_text, job_desc_raw_text): 
         # Lower both and run through ner pipeline
         res_base = Analyzer.nlp(resume_raw_text.lower())
         job_base = Analyzer.nlp(job_desc_raw_text.lower())
@@ -49,12 +52,13 @@ class Analyzer:
         # Basic document similarity 
         sim_base = res_base.similarity(job_base)
 
-        # Skill wise comparison 
-        res_skills = [s.lower() for s in Analyzer.get_skills(resume_raw_text.lower())]
-        res_skills.sort()
+        return sim_base
 
-        job_skills = [s.lower() for s in Analyzer.get_skills(job_desc_raw_text.lower())]
-        job_skills.sort()
+    @staticmethod
+    def get_specialization_score(resume_raw_text, job_desc_raw_text): 
+        # Skill wise comparison 
+        res_skills = Analyzer.get_skills(resume_raw_text.lower())
+        job_skills = Analyzer.get_skills(job_desc_raw_text.lower())
 
         # Collect frequency of each skill
         skills = set()
@@ -81,5 +85,12 @@ class Analyzer:
 
         # Skill similarity 
         sim_skill = np.dot(job_vec, res_vec) / (np.linalg.norm(job_vec) * np.linalg.norm(res_vec))
+
+        return sim_skill
+
+    @staticmethod
+    def get_score(resume_raw_text, job_desc_raw_text): 
+        sim_base  = Analyzer.get_domain_score(resume_raw_text, job_desc_raw_text)
+        sim_skill = Analyzer.get_specialization_score(resume_raw_text, job_desc_raw_text)
 
         return 3.*sim_skill + 2.*sim_base
