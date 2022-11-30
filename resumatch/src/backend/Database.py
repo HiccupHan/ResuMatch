@@ -42,4 +42,17 @@ def add_resume(db, resume_file_path):
     print(user_data_dict)
 
     db.put(b'user_data_dict', json.dumps(user_data_dict).encode())
+
+def remove_resume(db, resume_file_name):
+    user_data_dict = get_data_json(db)
+    resumes = user_data_dict["resumes"]
+
+    for i, r in resumes: 
+        if r["file_name"] == resume_file_name: 
+            resumes.pop(i)
+
+    user_data_dict["resumes"] = resumes
+
+
+    db.put(b'user_data_dict', json.dumps(user_data_dict).encode())
     

@@ -30,6 +30,9 @@ def _add_resume(resume_file_path):
     return add_resume(get_db(), resume_file_path)
 
 # Add a remove resume 
+@app.get("/remove_resume")
+def _remove_resume(resume_file_name): 
+    return remove_resume(get_db(), resume_file_name)
 
 @app.get("/scores")
 def _scores(linkedin_url): 

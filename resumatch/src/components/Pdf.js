@@ -26,6 +26,9 @@ const Pdf = ({ name, score, noRound }) => {
         chrome.storage.local.set({ 'storedResumes': newArray });
       }
     });
+
+    const request = new Request('http://localhost:8000/remove_resume?resume_file_name=' + name, { method: 'GET'});
+    fetch(request);
   }
 
   var stars = [];

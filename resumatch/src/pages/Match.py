@@ -59,19 +59,20 @@ if process_link:
 
         display_skills(job_skills)
 
-        tabs = st.tabs([r["title"] for r in resumes])
+        if len(resumes) > 0: 
+            tabs = st.tabs([r["title"] for r in resumes])
 
-        for i, tab in enumerate(tabs): 
-            with tab: 
-                "#### Resume Keywords:"
-                display_skills(resumes[i]["skills"])
-                " "
-                f'##### Domain Score:     {(100.*resumes[i]["domain_score"]):.2f} %'
-                st.progress(resumes[i]["domain_score"])
+            for i, tab in enumerate(tabs): 
+                with tab: 
+                    "#### Resume Keywords:"
+                    display_skills(resumes[i]["skills"])
+                    " "
+                    f'##### Domain Score:     {(100.*resumes[i]["domain_score"]):.2f} %'
+                    st.progress(resumes[i]["domain_score"])
 
-                " "
-                f'##### Specialization Score:     {(100.*resumes[i]["specialization_score"]):.2f} %'
-                st.progress(resumes[i]["specialization_score"])
+                    " "
+                    f'##### Specialization Score:     {(100.*resumes[i]["specialization_score"]):.2f} %'
+                    st.progress(resumes[i]["specialization_score"])
 
         helper = GlassdoorHelper()
         try: 
