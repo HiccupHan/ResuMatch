@@ -12,6 +12,7 @@ sys.path.append(dirname)
 import streamlit as st
 from backend.JobParser import JobParser
 from backend.Analyzer import Analyzer
+from backend.GlassdoorHelper import GlassdoorHelper
 import matplotlib.pyplot as plt
 
 st.title("Match Job Posting")
@@ -24,9 +25,9 @@ linkedin_url = args.get("linkedin_url", "")
 linkedin_url = st.text_input("LinkedIn Job Posting", value = linkedin_url)
 
 try: 
-    job_description = JobParser.__call__(linkedin_url).get_str()
+    job_content = JobParser.__call__(linkedin_url)
 except: 
-    job_description = None
+    job_content = None
 
 process_link = st.button("Process link") 
 
@@ -36,7 +37,8 @@ resumes = requests.post("http://localhost:8000/resumes").json()
 
 if process_link: 
 
-    if job_description is not None:
+    if job_content is not None:
+        job_description = job_content.get_str()
         for i, r in enumerate(resumes):
             if r["file_name"] == "None": 
                 resumes.pop(i)
@@ -70,6 +72,17 @@ if process_link:
                 " "
                 f'##### Specialization Score:     {(100.*resumes[i]["specialization_score"]):.2f} %'
                 st.progress(resumes[i]["specialization_score"])
+
+        helper = GlassdoorHelper()
+        try: 
+            glassdoorcontent = helper(helper, job_content, 2)
+        except: 
+            glassdoorcontent = None
+
+        if glassdoorcontent is not None: 
+            "### Glassdoor Reviews"
+            st.write(glassdoorcontent.str_rep)
+
 
     else: 
         st.error("Could not process posting")

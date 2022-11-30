@@ -13,7 +13,7 @@ from requests_html import HTMLSession
 import requests
 from bs4 import BeautifulSoup as soup
 from typing import List
-from job_parser import JobContent, JobParser
+from .JobParser import JobContent, JobParser
 
 def get_source(url):
     """Return the source code for the provided URL. 
@@ -63,6 +63,7 @@ class GlassdoorContent:
     breif_reviews: list = field(default_factory=lambda : [])
     pros: list = field(default_factory=lambda : [])
     cons: list = field(default_factory=lambda : [])
+    str_rep: str = ""
     glassdoor_url: str = "https://www.glassdoor.co.in/member/home/companies.htm"
 
 
@@ -78,6 +79,7 @@ class GlassdoorHelper:
         """ Take in job title and company to produce the needed GlassdoorContent"""
         
         # search company
+        str_rep = ""
         if flag==1:
             self.company = jobcontent.company
             links = scrape_google("glassdoor "+self.company)
@@ -155,7 +157,8 @@ class GlassdoorHelper:
                     break
             if link==None:
                 print('There is no rating or reviews for '+self.company+" "+self.job_title+' on Glassdoor')
-                return GlassdoorContent()
+                str_rep += 'There is no rating or reviews for '+self.company+" "+self.job_title+' on Glassdoor' + "\n"
+                return GlassdoorContent(str_rep=str_rep)
             else:
                 print('The link is '+link)
             
@@ -173,33 +176,39 @@ class GlassdoorHelper:
             rating=-1
             rating=bsobj.findAll('div',{'class':'v2__EIReviewsRatingsStylesV2__ratingNum v2__EIReviewsRatingsStylesV2__large'})[0].text.strip()
             print('The rating of '+exact_job_title+' is '+rating)
+            str_rep += 'The rating of '+exact_job_title+' is '+rating  + "\n"
             
             # scarpe recommandation
             recommandation=-1
             recommandation=bsobj.findAll('div',{'class':'donut__DonutStyleV2__donuttext donut-text pt-lg-0 px-lg-sm'})[0].findAll('strong')[0].text.strip()
             print(recommandation+' of '+exact_job_title+' employees will recommand this job to a friend')
-            
+            str_rep += recommandation+' of '+exact_job_title+' employees will recommand this job to a friend'  + "\n"
+
             # scarpe approval of CEO
             approval=-1
             approval_obj = bsobj.findAll('div',{'class':'donut__DonutStyleV2__donuttext donut-text pt-lg-0 px-lg-sm'})
             if len(approval_obj)>1:
                 approval=bsobj.findAll('div',{'class':'donut__DonutStyleV2__donuttext donut-text pt-lg-0 px-lg-sm'})[1].findAll('strong')[0].text.strip()
                 print(approval+' of '+exact_job_title+' employees approve of CEO')
+                str_rep += approval+' of '+exact_job_title+' employees approve of CEO'  + "\n"
             
             # scrape reviews
             review_list=[i.text.strip() for i in bsobj.findAll('h2',{'class':'mb-xxsm mt-0 css-93svrw el6ke055'})]
             print('Brief Reviews:',review_list)
-            
+            str_rep += 'Brief Reviews: ' + str(review_list)  + "\n"
+
             # scrape pros
             pros_obj=bsobj.findAll('div',{'class':'v2__EIReviewDetailsV2__fullWidth'})[::2]
             pros_list=[i.text.strip()[4:] for i in pros_obj]
             print('Pros:',pros_list)
-            
+            str_rep += 'Pros: ' + str(pros_list)  + "\n"
+
             # scrape cons
             cons_obj=bsobj.findAll('div',{'class':'v2__EIReviewDetailsV2__fullWidth'})[1::2]
             cons_list=[i.text.strip()[4:] for i in cons_obj]
             print('Cons:',cons_list)
-            
+            str_rep += 'Cons: ' + str(cons_list)  + "\n"
+
             return GlassdoorContent(True,rating,recommandation,approval,review_list,pros_list,cons_list,link)
 
         else:
@@ -210,8 +219,8 @@ class GlassdoorHelper:
            
         # raise NotImplementedError
 
-linkedin_site = "https://www.linkedin.com/jobs/view/3344591035"
-helper = GlassdoorHelper()
-parser = JobParser()
-jobcontent = parser(linkedin_site)
-glassdoorcontent = helper(helper, jobcontent,2)
+# linkedin_site = "https://www.linkedin.com/jobs/view/3344591035"
+# helper = GlassdoorHelper()
+# parser = JobParser()
+# jobcontent = parser(linkedin_site)
+# glassdoorcontent = helper(helper, jobcontent,2)
