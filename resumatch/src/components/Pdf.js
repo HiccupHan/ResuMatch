@@ -6,7 +6,7 @@ import pdfIcon from '../img/pdf.png'
 import whiteStar from '../img/whitestar.png'
 
 //takes in a file name and creates a file icon
-const Pdf = ({ name, score }) => {
+const Pdf = ({ name, score, noRound }) => {
   //remove file, to signal backend use chrome messaging api
   const removeSelf = () => {
     alert('Removing ' + name);
@@ -33,9 +33,15 @@ const Pdf = ({ name, score }) => {
     stars.push(<img className='white-star' key={i} src={whiteStar} alt='not found'></img>);
   }
 
+  var rawScore = noRound;
+  if(noRound == 0){
+    rawScore = '';
+  }
+
   return (
     <div className='display-container'>
       <img className='pdf-icon' src={pdfIcon} alt='not found'></img>{name}
+      <p className='raw-score'>{rawScore}</p>
       <div className='star-container'>
         {stars}
       </div>

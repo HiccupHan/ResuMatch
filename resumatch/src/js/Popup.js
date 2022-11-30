@@ -31,6 +31,8 @@ function Popup() {
   const [numStars, setNumStars] = useState(0);
   //scores of resumes
   const [scoreArray, setScores] = useState([]);
+  //not rounded scores
+  const [noRoundArray, setNoRound] = useState([]);
 
   //run set up
   useEffect(() => {
@@ -61,21 +63,13 @@ function Popup() {
       if (typeof result.resumeScores === 'undefined') {
         chrome.storage.local.set({ 'resumeScores': [] });
       }
-      // else{
-      //   const starNum = Math.max(result.resumeScores);
-      //   setNumStars(starNum);
-      // }
-      
     })
 
-    // const request = new Request('http://localhost:8000/resume_names', { method: 'POST' });
-    // fetch(request)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     chrome.storage.local.set({ 'storedResumes': data });
-    //     setResumes(data);
-    //     console.log(data);
-    //   });
+    chrome.storage.local.get(['noRoundScores'], function (result) {
+      if (typeof result.noRoundScores === 'undefined') {
+        chrome.storage.local.set({ 'noRoundScores': [] });
+      }
+    })
 
     //set up storedResumes in chrome storage, stores an array of resume file names
     chrome.storage.local.get(['storedResumes'], function (result) {
@@ -116,10 +110,13 @@ function Popup() {
         .then((response) => response.json())
         .then((data) => {
           const arrayOfScores = data.map((score) => Math.round(score));
+          const arrayOfNoRound = data.map((score) => score.toFixed(3));
           chrome.storage.local.set({ 'resumeScores': arrayOfScores });
+          chrome.storage.local.set({ 'noRoundScores': arrayOfNoRound });
           const numStars = Math.max(...arrayOfScores);
           setNumStars(numStars);
           setScores(arrayOfScores);
+          setNoRound(arrayOfNoRound);
         });
     });          
   }
@@ -129,7 +126,7 @@ function Popup() {
       <Login open={isOpen} setClose={closeLogin} setOpen={openLogin} setName={setUsername} />
       <Header greeting={greeting} openLogin={openLogin} />
       <MatchResults numberOfStars={numStars} />
-      <Resumes resumeArray={arrayOfResumes} scoreArray={scoreArray} />
+      <Resumes resumeArray={arrayOfResumes} scoreArray={scoreArray} noRoundArray={noRoundArray} />
       <div className='footer'>
         <Button name={'Upload Resume'} func={openModal} />
         <Button name={'Match'} func={matchResume} />
