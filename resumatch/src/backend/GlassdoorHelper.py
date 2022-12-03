@@ -1,7 +1,5 @@
 """
-Look into:
-    https://www.glassdoor.com/developer/index.htm
-    https://stackoverflow.com/questions/58040225/enter-query-in-search-bar-and-scrape-results
+Get GlassDoor reviews and ratings
 """
 
 from dataclasses import dataclass, field
@@ -15,8 +13,8 @@ from bs4 import BeautifulSoup as soup
 from typing import List
 from .JobParser import JobContent, JobParser
 
-def get_source(url):
-    """Return the source code for the provided URL. 
+def _get_source(url):
+    """Return the source code for the provided URL.  
 
     Args: 
         url (string): URL of the page to scrape.
@@ -33,10 +31,10 @@ def get_source(url):
     except requests.exceptions.RequestException as e:
         print(e)
 
-def scrape_google(query):
+def _scrape_google(query):
 
     query = urllib.parse.quote_plus(query)
-    response = get_source("https://www.google.co.uk/search?q=" + query)
+    response = _get_source("https://www.google.co.uk/search?q=" + query)
 
     links = list(response.html.absolute_links)
     google_domains = ('https://www.google.', 
@@ -56,18 +54,29 @@ def scrape_google(query):
 @dataclass
 class GlassdoorContent:
     """ Dataclass to collect and format parsed glassdoor data """
+    
     flag: bool = False
+    """ Focuses on company if true, job otherwise """
     rating: float = -1.
+    """ Job/Comapny rating """
     recommandation: str = "0%"
+    """ Reccomendation rate """
     approval: str = "0%"
+    """ Approval rating """
     breif_reviews: list = field(default_factory=lambda : [])
+    """ Some company/job reviews """
     pros: list = field(default_factory=lambda : [])
+    """ Job/Company pros """
     cons: list = field(default_factory=lambda : [])
+    """ Job/Company cons """
     str_rep: str = ""
+    """ String representation of glass door content """
     glassdoor_url: str = "https://www.glassdoor.co.in/member/home/companies.htm"
+    """ url to glassdoor data represented """
 
 
 class GlassdoorHelper:
+    """ Get Glassdoor information given job content parsed from LinkedIn """
     
     def __init__(self):
         self.company = None
@@ -76,13 +85,19 @@ class GlassdoorHelper:
     
     @staticmethod
     def __call__(self, jobcontent : JobContent, flag: int) -> GlassdoorContent:
-        """ Take in job title and company to produce the needed GlassdoorContent"""
+        """ Take in job title and company to produce the needed GlassdoorContent 
+        
+        Notes
+        -----
+            If flag is set to 1, we look at company over the job title 
+            If flag is set to 2, we look at job title within company
+        """
         
         # search company
         str_rep = ""
         if flag==1:
             self.company = jobcontent.company
-            links = scrape_google("glassdoor "+self.company)
+            links = _scrape_google("glassdoor "+self.company)
             link = None
             for l in links:
                 if l.startswith("https://www.glassdoor.com/Overview/"):
@@ -113,7 +128,7 @@ class GlassdoorHelper:
             print(approval+' of '+self.company+' employees approve of CEO')
             
             # scrape reviews
-            links = scrape_google("glassdoor "+self.company+" reviews")
+            links = _scrape_google("glassdoor "+self.company+" reviews")
             link_ = None
             #print(links)
             links_ = []
@@ -149,7 +164,7 @@ class GlassdoorHelper:
         elif flag==2:
             self.company = jobcontent.company
             self.job_title = jobcontent.job_title
-            links = scrape_google("glassdoor rating"+self.company+" "+self.job_title)
+            links = _scrape_google("glassdoor rating"+self.company+" "+self.job_title)
             link = None
             for l in links:
                 if l.startswith("https://www.glassdoor.com/Reviews/"):
@@ -217,10 +232,4 @@ class GlassdoorHelper:
                             2 corresponds to searching company name and job title on glassdoor.''')
         
            
-        # raise NotImplementedError
 
-# linkedin_site = "https://www.linkedin.com/jobs/view/3344591035"
-# helper = GlassdoorHelper()
-# parser = JobParser()
-# jobcontent = parser(linkedin_site)
-# glassdoorcontent = helper(helper, jobcontent,2)

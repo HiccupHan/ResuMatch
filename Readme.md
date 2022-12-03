@@ -1,6 +1,10 @@
 # CS130 Project
-# Team members: Jagrit Digani, Junkai Zhang, Yuanzhou Chen, Xuanzhe Han, Qiwei Di, Yiwen Kou
-# ResuMatch: a chrome extension that matches your resume to LinkedIn job postings. Built with React
+### Team members: Jagrit Digani, Junkai Zhang, Yuanzhou Chen, Xuanzhe Han, Qiwei Di, Yiwen Kou
+
+# ResuMatch
+### a chrome extension that matches your resume to LinkedIn job postings. Built with React
+
+## Installation instructions 
 
 ### Download the release files, `cd resumatch` and run `npm install`
 
@@ -21,24 +25,26 @@ Open Chrome extension page, turn on developer mode, then click `Load Unpacked` a
 ### Setup on server side 
 
 Set up conda virtual environment using 
-(Note: install conda on your system https://docs.conda.io/en/latest/)
-`conda create -n resumatch python=3.10`
-`conda activate resumatch`
-`conda install -c conda-forge spacy`
-`pip install streamlit`
-`pip install spacy-streamlit`
-`pip install plyvel`
-`pip install "fastapi[all]`
+(Note: install conda on your system https://docs.conda.io/en/latest/)\
+`conda create -n resumatch python=3.10`\
+`conda activate resumatch`\
+`conda install -c conda-forge spacy`\
+`conda install sphinx`\
+`pip install sphinx-rtd-theme`\
+`pip install streamlit`\
+`pip install spacy-streamlit`\
+`pip install plyvel`\
+`pip install "fastapi[all]`\
 `pip install requests_html`
 
 
-Then download the necessary files and models for the NLP analysis 
-`python -m spacy download en_core_web_lg`
+Then download the necessary files and models for the NLP analysis \
+`python -m spacy download en_core_web_lg`\
 `python -m spacy download en_core_web_sm`
 
-Launch backend server using 
-`cd resumatch/src/backend/` 
+Launch backend server using \
+`cd resumatch/src/backend/` \
 `uvicorn server:app --reload`
 
-Launch upload page using (from resumatch dir)
-`streamlit run src/ResuMatch.py `
+Launch webapp using (from resumatch dir) \
+`streamlit run src/ResuMatch.py ` \

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Backend &mdash; ResuMatch 1. documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to ResuMatch’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> ResuMatch
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.Analyzer">backend.Analyzer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.Database">backend.Database module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.GlassdoorHelper">backend.GlassdoorHelper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.JobParser">backend.JobParser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.ResumeParser">backend.ResumeParser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend.server">backend.server module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-backend">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ResuMatch</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Backend</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/backend.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="backend">
+<h1>Backend<a class="headerlink" href="#backend" title="Permalink to this heading"></a></h1>
+<section id="module-backend.Analyzer">
+<span id="backend-analyzer-module"></span><h2>backend.Analyzer module<a class="headerlink" href="#module-backend.Analyzer" title="Permalink to this heading"></a></h2>
+<p>Resume analysis against a job description</p>
+<p>Resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/Spidy20/Smart_Resume_Analyser_App">https://github.com/Spidy20/Smart_Resume_Analyser_App</a></p></li>
+<li><p><a class="reference external" href="https://deepnote.com/&#64;abid/spaCy-Resume-Analysis-81ba1e4b-7fa8-45fe-ac7a-0b7bf3da7826">https://deepnote.com/&#64;abid/spaCy-Resume-Analysis-81ba1e4b-7fa8-45fe-ac7a-0b7bf3da7826</a></p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.Analyzer.Analyzer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.Analyzer.</span></span><span class="sig-name descname"><span class="pre">Analyzer</span></span><a class="headerlink" href="#backend.Analyzer.Analyzer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Process resume and job description text though NLP Analysis and generate matching score</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.Analyzer.Analyzer.get_domain_score">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_domain_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resume_raw_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_desc_raw_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#backend.Analyzer.Analyzer.get_domain_score" title="Permalink to this definition"></a></dt>
+<dd><p>Take the raw text of the resume and job description and compare them</p>
+<p>The similarity score is a measure of how similar two documents are.
+It’s a number between 0 and 1, where 1 is the most similar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resume_raw_text</strong> (<em>str</em>) – The raw text of the resume</p></li>
+<li><p><strong>job_desc_raw_text</strong> (<em>str</em>) – The raw text of the job description</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A similarity score between 0 and 1.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.Analyzer.Analyzer.get_score">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resume_raw_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_desc_raw_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#backend.Analyzer.Analyzer.get_score" title="Permalink to this definition"></a></dt>
+<dd><p>Take resume and a job description, and return a similarity score between 0 and 5</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resume_raw_text</strong> (<em>str</em>) – The raw text of the resume</p></li>
+<li><p><strong>job_desc_raw_text</strong> (<em>str</em>) – The raw text of the job description</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A similarity score between 0 and 5.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.Analyzer.Analyzer.get_skills">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_skills</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#backend.Analyzer.Analyzer.get_skills" title="Permalink to this definition"></a></dt>
+<dd><p>Takes a string of text, and returns a list of skills through NER analysis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>raw_text</strong> (<em>str</em>) – The text to be analyzed.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of skills</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.Analyzer.Analyzer.get_specialization_score">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_specialization_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resume_raw_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_desc_raw_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#backend.Analyzer.Analyzer.get_specialization_score" title="Permalink to this definition"></a></dt>
+<dd><p>Take the skills from the resume and job description and compare the frequencies</p>
+<p>The similarity score is a measure of how similar two documents are.
+It’s a number between 0 and 1, where 1 is the most similar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resume_raw_text</strong> (<em>str</em>) – The raw text of the resume.</p></li>
+<li><p><strong>job_desc_raw_text</strong> (<em>str</em>) – The raw text of the job description.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A similarity score between 0 and 1.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.Analyzer.Analyzer.run_nlp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run_nlp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.Analyzer.Analyzer.run_nlp" title="Permalink to this definition"></a></dt>
+<dd><p>Takes in a string of text, and returns a list of dictionaries, where each
+dictionary contains the information about a single sentence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>raw_text</strong> (<em>str</em>) – The text to be analyzed.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>A list of dictionaries containing the text, lemma, pos, and tag of each word in the text</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-backend.Database">
+<span id="backend-database-module"></span><h2>backend.Database module<a class="headerlink" href="#module-backend.Database" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.Database.add_resume">
+<span class="sig-prename descclassname"><span class="pre">backend.Database.</span></span><span class="sig-name descname"><span class="pre">add_resume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resume_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.Database.add_resume" title="Permalink to this definition"></a></dt>
+<dd><p>Takes a resume file path, parses the resume, and adds the resume to the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>plyvel.DB</em>) – The database object that we created earlier.</p></li>
+<li><p><strong>resume_file_path</strong> (<em>str</em>) – The path to the resume file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.Database.get_data">
+<span class="sig-prename descclassname"><span class="pre">backend.Database.</span></span><span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DB</span></span></span><a class="headerlink" href="#backend.Database.get_data" title="Permalink to this definition"></a></dt>
+<dd><p>Load in local LevelDB database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>user_data_dir</strong> (<em>str</em>) – The directory where the user’s data is stored.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>A plyvel.DB object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.Database.get_data_json">
+<span class="sig-prename descclassname"><span class="pre">backend.Database.</span></span><span class="sig-name descname"><span class="pre">get_data_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DB</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#backend.Database.get_data_json" title="Permalink to this definition"></a></dt>
+<dd><p>Get user data as json dict from databse</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>db</strong> (<em>plyvel.DB</em>) – LevelDB databse</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>A dictionary of the user data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.Database.get_resume_names">
+<span class="sig-prename descclassname"><span class="pre">backend.Database.</span></span><span class="sig-name descname"><span class="pre">get_resume_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DB</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#backend.Database.get_resume_names" title="Permalink to this definition"></a></dt>
+<dd><p>Get list of resume names stored in DB</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>db</strong> (<em>plyvel.DB</em>) – the database object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>A list of resume names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.Database.remove_resume">
+<span class="sig-prename descclassname"><span class="pre">backend.Database.</span></span><span class="sig-name descname"><span class="pre">remove_resume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resume_file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.Database.remove_resume" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a resume from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>plyvel.DB</em>) – the database object</p></li>
+<li><p><strong>resume_file_name</strong> (<em>str</em>) – The name of the resume file you want to remove.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-backend.GlassdoorHelper">
+<span id="backend-glassdoorhelper-module"></span><h2>backend.GlassdoorHelper module<a class="headerlink" href="#module-backend.GlassdoorHelper" title="Permalink to this heading"></a></h2>
+<p>Get GlassDoor reviews and ratings</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorContent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.GlassdoorHelper.</span></span><span class="sig-name descname"><span class="pre">GlassdoorContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">-1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recommandation:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'0%'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approval:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'0%'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">breif_reviews:</span> <span class="pre">list</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pros:</span> <span class="pre">list</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cons:</span> <span class="pre">list</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str_rep:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">glassdoor_url:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'https://www.glassdoor.co.in/member/home/companies.htm'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorContent" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Dataclass to collect and format parsed glassdoor data</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorContent.approval">
+<span class="sig-name descname"><span class="pre">approval</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'0%'</span></em><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorContent.approval" title="Permalink to this definition"></a></dt>
+<dd><p>Approval rating</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorContent.breif_reviews">
+<span class="sig-name descname"><span class="pre">breif_reviews</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorContent.breif_reviews" title="Permalink to this definition"></a></dt>
+<dd><p>Some company/job reviews</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorContent.cons">
+<span class="sig-name descname"><span class="pre">cons</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorContent.cons" title="Permalink to this definition"></a></dt>
+<dd><p>Job/Company cons</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorContent.flag">
+<span class="sig-name descname"><span class="pre">flag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorContent.flag" title="Permalink to this definition"></a></dt>
+<dd><p>Focuses on company if true, job otherwise</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorContent.glassdoor_url">
+<span class="sig-name descname"><span class="pre">glassdoor_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://www.glassdoor.co.in/member/home/companies.htm'</span></em><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorContent.glassdoor_url" title="Permalink to this definition"></a></dt>
+<dd><p>url to glassdoor data represented</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorContent.pros">
+<span class="sig-name descname"><span class="pre">pros</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorContent.pros" title="Permalink to this definition"></a></dt>
+<dd><p>Job/Company pros</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorContent.rating">
+<span class="sig-name descname"><span class="pre">rating</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1.0</span></em><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorContent.rating" title="Permalink to this definition"></a></dt>
+<dd><p>Job/Comapny rating</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorContent.recommandation">
+<span class="sig-name descname"><span class="pre">recommandation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'0%'</span></em><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorContent.recommandation" title="Permalink to this definition"></a></dt>
+<dd><p>Reccomendation rate</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorContent.str_rep">
+<span class="sig-name descname"><span class="pre">str_rep</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorContent.str_rep" title="Permalink to this definition"></a></dt>
+<dd><p>String representation of glass door content</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.GlassdoorHelper.GlassdoorHelper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.GlassdoorHelper.</span></span><span class="sig-name descname"><span class="pre">GlassdoorHelper</span></span><a class="headerlink" href="#backend.GlassdoorHelper.GlassdoorHelper" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Get Glassdoor information given job content parsed from LinkedIn</p>
+</dd></dl>
+
+</section>
+<section id="module-backend.JobParser">
+<span id="backend-jobparser-module"></span><h2>backend.JobParser module<a class="headerlink" href="#module-backend.JobParser" title="Permalink to this heading"></a></h2>
+<p>LinkedIn Job Posting Parsing</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.JobParser.JobContent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.JobParser.</span></span><span class="sig-name descname"><span class="pre">JobContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linkedin_url:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">company:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_title:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qual:</span> <span class="pre">~typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc:</span> <span class="pre">~typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skills:</span> <span class="pre">~typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">misc:</span> <span class="pre">~typing.List[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.JobParser.JobContent" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Dataclass to collect and format parsed LinkedIn Job Description data</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.JobParser.JobContent.company">
+<span class="sig-name descname"><span class="pre">company</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#backend.JobParser.JobContent.company" title="Permalink to this definition"></a></dt>
+<dd><p>Positing company/institution</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.JobParser.JobContent.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#backend.JobParser.JobContent.desc" title="Permalink to this definition"></a></dt>
+<dd><p>Job Description</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.JobParser.JobContent.get_str">
+<span class="sig-name descname"><span class="pre">get_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#backend.JobParser.JobContent.get_str" title="Permalink to this definition"></a></dt>
+<dd><p>Output string representation of job content</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.JobParser.JobContent.job_title">
+<span class="sig-name descname"><span class="pre">job_title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#backend.JobParser.JobContent.job_title" title="Permalink to this definition"></a></dt>
+<dd><p>Posting job title</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.JobParser.JobContent.linkedin_url">
+<span class="sig-name descname"><span class="pre">linkedin_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#backend.JobParser.JobContent.linkedin_url" title="Permalink to this definition"></a></dt>
+<dd><p>Posting link</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.JobParser.JobContent.misc">
+<span class="sig-name descname"><span class="pre">misc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#backend.JobParser.JobContent.misc" title="Permalink to this definition"></a></dt>
+<dd><p>Miscellaneous</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.JobParser.JobContent.print">
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ofile=&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stdout&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.JobParser.JobContent.print" title="Permalink to this definition"></a></dt>
+<dd><p>Print string represntation of job content</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.JobParser.JobContent.qual">
+<span class="sig-name descname"><span class="pre">qual</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#backend.JobParser.JobContent.qual" title="Permalink to this definition"></a></dt>
+<dd><p>Education and Qualifications</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.JobParser.JobContent.skills">
+<span class="sig-name descname"><span class="pre">skills</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#backend.JobParser.JobContent.skills" title="Permalink to this definition"></a></dt>
+<dd><p>Required Skills</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.JobParser.JobParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.JobParser.</span></span><span class="sig-name descname"><span class="pre">JobParser</span></span><a class="headerlink" href="#backend.JobParser.JobParser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class that returns job content of given url when called</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.JobParser.findIndexes">
+<span class="sig-prename descclassname"><span class="pre">backend.JobParser.</span></span><span class="sig-name descname"><span class="pre">findIndexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.JobParser.findIndexes" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the list of indexes i where s[i] = c</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.JobParser.getSource">
+<span class="sig-prename descclassname"><span class="pre">backend.JobParser.</span></span><span class="sig-name descname"><span class="pre">getSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#backend.JobParser.getSource" title="Permalink to this definition"></a></dt>
+<dd><p>Get source code of given url.
+If file_name is provided, also print to file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.JobParser.remakeFile">
+<span class="sig-prename descclassname"><span class="pre">backend.JobParser.</span></span><span class="sig-name descname"><span class="pre">remakeFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.JobParser.remakeFile" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-backend.ResumeParser">
+<span id="backend-resumeparser-module"></span><h2>backend.ResumeParser module<a class="headerlink" href="#module-backend.ResumeParser" title="Permalink to this heading"></a></h2>
+<p>Resume document parsing</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.ResumeParser.ResumeContent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.ResumeParser.</span></span><span class="sig-name descname"><span class="pre">ResumeContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qual:</span> <span class="pre">list[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exper:</span> <span class="pre">list[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skills:</span> <span class="pre">list[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">misc:</span> <span class="pre">list[str]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.ResumeParser.ResumeContent" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Dataclass to collect and format parsed resume data</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.ResumeParser.ResumeContent.exper">
+<span class="sig-name descname"><span class="pre">exper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#backend.ResumeParser.ResumeContent.exper" title="Permalink to this definition"></a></dt>
+<dd><p>Professional Experience</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.ResumeParser.ResumeContent.misc">
+<span class="sig-name descname"><span class="pre">misc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#backend.ResumeParser.ResumeContent.misc" title="Permalink to this definition"></a></dt>
+<dd><p>Miscellaneous</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.ResumeParser.ResumeContent.qual">
+<span class="sig-name descname"><span class="pre">qual</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#backend.ResumeParser.ResumeContent.qual" title="Permalink to this definition"></a></dt>
+<dd><p>Education and Qualifications</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.ResumeParser.ResumeContent.skills">
+<span class="sig-name descname"><span class="pre">skills</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#backend.ResumeParser.ResumeContent.skills" title="Permalink to this definition"></a></dt>
+<dd><p>Skills</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="backend.ResumeParser.ResumeContent.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#backend.ResumeParser.ResumeContent.user_id" title="Permalink to this definition"></a></dt>
+<dd><p>Unique User ID</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.ResumeParser.ResumeParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.ResumeParser.</span></span><span class="sig-name descname"><span class="pre">ResumeParser</span></span><a class="headerlink" href="#backend.ResumeParser.ResumeParser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Parse Resume PDFs into usable format for analysis</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.ResumeParser.ResumeParser.get_raw_text">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_raw_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.ResumeParser.ResumeParser.get_raw_text" title="Permalink to this definition"></a></dt>
+<dd><p>takes a file path to resume pdf and returns the raw text</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – The path to the resume pdf file.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>A string of the text from the resume.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-backend.server">
+<span id="backend-server-module"></span><h2>backend.server module<a class="headerlink" href="#module-backend.server" title="Permalink to this heading"></a></h2>
+<p>FastAPI server module</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.server.backend_add_resume">
+<span class="sig-prename descclassname"><span class="pre">backend.server.</span></span><span class="sig-name descname"><span class="pre">backend_add_resume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resume_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.server.backend_add_resume" title="Permalink to this definition"></a></dt>
+<dd><p>Load resume pdf from path, parse and add to database</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.server.backend_get_data_json">
+<span class="sig-prename descclassname"><span class="pre">backend.server.</span></span><span class="sig-name descname"><span class="pre">backend_get_data_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#backend.server.backend_get_data_json" title="Permalink to this definition"></a></dt>
+<dd><p>Get each resume’s stored data</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.server.backend_get_resume_names">
+<span class="sig-prename descclassname"><span class="pre">backend.server.</span></span><span class="sig-name descname"><span class="pre">backend_get_resume_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#backend.server.backend_get_resume_names" title="Permalink to this definition"></a></dt>
+<dd><p>Get names of resumes stored in database</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.server.backend_remove_resume">
+<span class="sig-prename descclassname"><span class="pre">backend.server.</span></span><span class="sig-name descname"><span class="pre">backend_remove_resume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resume_file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.server.backend_remove_resume" title="Permalink to this definition"></a></dt>
+<dd><p>Remove resume with file name from database</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.server.backend_scores">
+<span class="sig-prename descclassname"><span class="pre">backend.server.</span></span><span class="sig-name descname"><span class="pre">backend_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linkedin_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#backend.server.backend_scores" title="Permalink to this definition"></a></dt>
+<dd><p>Takes a LinkedIn URL, parses the job description, and returns a list of scores for each resume
+in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>linkedin_url</strong> (<em>str</em>) – the url of the job posting</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of scores for each resume</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.server.get_db">
+<span class="sig-prename descclassname"><span class="pre">backend.server.</span></span><span class="sig-name descname"><span class="pre">get_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DB</span></span></span><a class="headerlink" href="#backend.server.get_db" title="Permalink to this definition"></a></dt>
+<dd><p>Get the database</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.server.shutdown_event">
+<span class="sig-prename descclassname"><span class="pre">backend.server.</span></span><span class="sig-name descname"><span class="pre">shutdown_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#backend.server.shutdown_event" title="Permalink to this definition"></a></dt>
+<dd><p>Close database on server shutdown</p>
+</dd></dl>
+
+</section>
+<section id="module-backend">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-backend" title="Permalink to this heading"></a></h2>
+<p>Backend module</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to ResuMatch’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Jagrit Digani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

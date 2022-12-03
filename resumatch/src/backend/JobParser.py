@@ -1,4 +1,3 @@
-
 """
 LinkedIn Job Posting Parsing
 """
@@ -12,15 +11,24 @@ from bs4 import BeautifulSoup
 @dataclass
 class JobContent:
     """ Dataclass to collect and format parsed LinkedIn Job Description data """
+    
     linkedin_url: str = ""
+    """ Posting link """
     company: str = ""
+    """ Positing company/institution """
     job_title: str = ""
-    qual: List[str] = field(default_factory=list)       # qualifications
+    """ Posting job title """
+    qual: List[str] = field(default_factory=list)       
+    """ Education and Qualifications """
     desc: List[str] = field(default_factory=list)       # job description
+    """ Job Description """
     skills: List[str] = field(default_factory=list)     # required skills
+    """ Required Skills """
     misc: List[str] = field(default_factory=list)       # miscellaneous
+    """ Miscellaneous """
     
     def print(self, ofile=sys.stdout):
+        """ Print string represntation of job content """
         print("--- Job Content ---", file=ofile)
         print("-- Company:", self.company, file=ofile)
         print("-- Job title:", self.job_title, file=ofile)
@@ -31,7 +39,8 @@ class JobContent:
         
         print("--- End of Job Content ---", file=ofile)
 
-    def get_str(self):
+    def get_str(self) -> str:
+        """ Output string representation of job content """
         rstr = """"""
         rstr += self.company + "\n"
         rstr += self.job_title + "\n"
@@ -50,11 +59,11 @@ class JobParser:
         """ Take in url to LinkedIn posting and produce the needed JobContent """
         
         source_text = getSource(linkedin_url, fout_name)
-        builder = BuildJobContent(linkedin_url, source_text)
+        builder = _BuildJobContent(linkedin_url, source_text)
         
         return builder()
 
-class BuildJobContent:
+class _BuildJobContent:
     """ Class to build job content dataclass based on web source """
     url : str
     soup : BeautifulSoup

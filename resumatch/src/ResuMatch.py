@@ -47,6 +47,6 @@ def upload_page():
                         cleaned_lines.append(s)
                 
                 raw_text = '\n'.join(cleaned_lines)
-                spacy_streamlit.visualize_ner(Analyzer.nlp(raw_text))
+                spacy_streamlit.visualize_ner(Analyzer.run_nlp(raw_text))
 
 upload_page()
